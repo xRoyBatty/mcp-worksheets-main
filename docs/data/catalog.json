@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2024-03-21T12:00:00Z",
+  "levels": [
+    {"id": "a1", "name": "Beginner"},
+    {"id": "a2", "name": "Elementary"},
+    {"id": "b1", "name": "Intermediate"},
+    {"id": "b2", "name": "Upper Intermediate"},
+    {"id": "c1", "name": "Advanced"}
+  ],
+  "categories": ["grammar", "vocabulary", "pronunciation", "conversation"],
+  "skills": ["grammar", "vocabulary", "reading", "listening", "speaking", "writing"]
+}

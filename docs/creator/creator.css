@@ -99,3 +99,39 @@
 .notification.success { background: #4CAF50; color: white; }
 .notification.error { background: #f44336; color: white; }
 .notification.info { background: #2196F3; color: white; }
+
+.json-import-section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.json-import-container {
+    margin-top: 1rem;
+}
+
+.json-input {
+    width: 100%;
+    min-height: 200px;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-family: monospace;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.toggle-json-import,
+.generate-from-json {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.toggle-json-import:hover,
+.generate-from-json:hover {
+    background: #1976D2;
+}

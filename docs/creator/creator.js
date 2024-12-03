@@ -6,6 +6,12 @@ class WorksheetCreator {
         this.tasksList = document.getElementById('tasksList');
         this.preview = document.querySelector('.preview-content');
         this.setupEventListeners();
+        this.addJsonImportButton();
+        
+        // Create notification element
+        this.notification = document.createElement('div');
+        this.notification.className = 'notification';
+        document.body.appendChild(this.notification);
     }
 
     setupEventListeners() {
@@ -219,18 +225,35 @@ class WorksheetCreator {
             const formData = this.collectFormData();
             const worksheet = await generateWorksheet(formData);
             
-            // Generate the path for the worksheet
-            const path = this.generatePath(formData);
-            
-            // Save worksheet HTML file
-            await this.saveWorksheetFile(path, worksheet);
-            
-            // Update index.json
-            await this.updateIndex(formData, path);
-            
-            this.showNotification('Worksheet created successfully! Don\'t forget to commit and push your changes.', 'success');
-            
-            // Reset form
+            // Generate folder name
+            const folderName = `${formData.level}-${formData.title
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)/g, '')}`;
+
+            // Create a simple server endpoint to handle file creation
+            const response = await fetch('/api/create-worksheet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    folderName: folderName,
+                    worksheet: worksheet,
+                    metadata: {
+                        title: formData.title,
+                        level: formData.level,
+                        skills: formData.skills,
+                        category: formData.category
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to create worksheet');
+            }
+
+            this.showNotification('Worksheet created successfully!', 'success');
             this.form.reset();
             this.tasksList.innerHTML = '';
             this.preview.innerHTML = '';
@@ -238,74 +261,6 @@ class WorksheetCreator {
             console.error('Error creating worksheet:', error);
             this.showNotification('Error creating worksheet. Check console for details.', 'error');
         }
-    }
-
-    generatePath(formData) {
-        return `${formData.level}-${formData.title
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/(^-|-$)/g, '')}`;
-    }
-
-    async saveWorksheetFile(path, content) {
-        // Create directory if it doesn't exist
-        const dirPath = `../worksheets/${path}`;
-        const filePath = `${dirPath}/index.html`;
-
-        try {
-            // Save the file
-            const blob = new Blob([content], { type: 'text/html' });
-            const fileHandle = await window.showSaveFilePicker({
-                suggestedName: filePath,
-                types: [{
-                    description: 'HTML Files',
-                    accept: { 'text/html': ['.html'] },
-                }],
-            });
-            const writable = await fileHandle.createWritable();
-            await writable.write(blob);
-            await writable.close();
-        } catch (error) {
-            console.error('Error saving worksheet file:', error);
-            throw error;
-        }
-    }
-
-    async updateIndex(formData, path) {
-        try {
-            // Load current index
-            const response = await fetch('../data/worksheets.json');
-            const index = await response.json();
-
-            // Add new worksheet
-            index.worksheets.push({
-                title: formData.title,
-                level: formData.level,
-                skills: formData.skills,
-                path: path,
-                category: formData.category
-            });
-
-            // Save updated index
-            const blob = new Blob([JSON.stringify(index, null, 2)], { type: 'application/json' });
-            const fileHandle = await window.showSaveFilePicker({
-                suggestedName: '../data/worksheets.json',
-                types: [{
-                    description: 'JSON Files',
-                    accept: { 'application/json': ['.json'] },
-                }],
-            });
-            const writable = await fileHandle.createWritable();
-            await writable.write(blob);
-            await writable.close();
-        } catch (error) {
-            console.error('Error updating index:', error);
-            throw error;
-        }
-    }
-
-    showNotification(message, type) {
-        // Implementation of notification system
     }
 
     async updatePreview() {
@@ -322,6 +277,121 @@ class WorksheetCreator {
             console.error('Error updating preview:', error);
             this.preview.innerHTML = '<p class="error">Error generating preview</p>';
         }
+    }
+
+    addJsonImportButton() {
+        // Add button and textarea to the form
+        const importSection = document.createElement('div');
+        importSection.className = 'json-import-section';
+        importSection.innerHTML = `
+            <button type="button" class="toggle-json-import">Import from JSON</button>
+            <div class="json-import-container" style="display: none;">
+                <textarea class="json-input" placeholder="Paste your worksheet JSON here..."></textarea>
+                <button type="button" class="generate-from-json">Generate Worksheet</button>
+            </div>
+        `;
+
+        this.form.insertBefore(importSection, this.form.firstChild);
+
+        // Add event listeners
+        const toggleBtn = importSection.querySelector('.toggle-json-import');
+        const container = importSection.querySelector('.json-import-container');
+        const generateBtn = importSection.querySelector('.generate-from-json');
+
+        toggleBtn.addEventListener('click', () => {
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        });
+
+        generateBtn.addEventListener('click', () => {
+            const jsonInput = importSection.querySelector('.json-input');
+            try {
+                const data = JSON.parse(jsonInput.value);
+                this.populateFormFromJson(data);
+                container.style.display = 'none';
+                this.showNotification('Worksheet loaded from JSON', 'success');
+            } catch (error) {
+                this.showNotification('Invalid JSON format', 'error');
+                console.error('JSON parse error:', error);
+            }
+        });
+    }
+
+    populateFormFromJson(data) {
+        // Clear existing tasks
+        this.tasksList.innerHTML = '';
+
+        // Populate metadata
+        document.getElementById('title').value = data.title || '';
+        document.getElementById('level').value = data.level || 'b1';
+        document.getElementById('category').value = data.category || 'grammar';
+        
+        // Handle skills (multiselect)
+        const skillsSelect = document.getElementById('skills');
+        Array.from(skillsSelect.options).forEach(option => {
+            option.selected = data.skills?.includes(option.value);
+        });
+
+        // Add tasks
+        data.tasks?.forEach(task => {
+            this.addTaskForm(task.type);
+            const taskForm = this.tasksList.lastElementChild;
+
+            switch (task.type) {
+                case 'multiChoice':
+                    taskForm.querySelector('.task-question').value = task.question;
+                    // Remove default options
+                    taskForm.querySelector('.options-container').innerHTML = '';
+                    // Add options from JSON
+                    task.options.forEach((option, index) => {
+                        const optionDiv = document.createElement('div');
+                        optionDiv.className = 'option';
+                        optionDiv.innerHTML = `
+                            <input type="text" value="${option.text}" required>
+                            <input type="radio" name="correct-${Date.now()}" value="${index}" ${option.correct ? 'checked' : ''}>
+                        `;
+                        taskForm.querySelector('.options-container').appendChild(optionDiv);
+                    });
+                    break;
+
+                case 'fillBlanks':
+                    taskForm.querySelector('.task-text').value = task.text;
+                    break;
+
+                case 'matching':
+                    // Remove default pairs
+                    taskForm.querySelector('.pairs-container').innerHTML = '';
+                    // Add pairs from JSON
+                    task.pairs.forEach(pair => {
+                        const pairDiv = document.createElement('div');
+                        pairDiv.className = 'pair';
+                        pairDiv.innerHTML = `
+                            <input type="text" value="${pair.left}" required>
+                            <input type="text" value="${pair.right}" required>
+                        `;
+                        taskForm.querySelector('.pairs-container').appendChild(pairDiv);
+                    });
+                    break;
+
+                case 'dictation':
+                    taskForm.querySelector('.task-text').value = task.text;
+                    taskForm.querySelector('.max-attempts').value = task.maxAttempts || 3;
+                    break;
+            }
+        });
+
+        // Update preview
+        this.updatePreview();
+    }
+
+    showNotification(message, type = 'info') {
+        this.notification.textContent = message;
+        this.notification.className = `notification ${type}`;
+        this.notification.style.display = 'block';
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+            this.notification.style.display = 'none';
+        }, 3000);
     }
 }
 

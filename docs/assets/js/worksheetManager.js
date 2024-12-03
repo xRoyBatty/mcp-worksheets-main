@@ -70,6 +70,9 @@ export class WorksheetManager {
         let totalCorrect = 0;
         let totalQuestions = 0;
 
+        // Remove any existing score displays first
+        document.querySelectorAll('.notification').forEach(notif => notif.remove());
+
         for (const task of this.tasks.values()) {
             const result = await task.check();
             if (result.total) {
@@ -88,6 +91,7 @@ export class WorksheetManager {
             progress
         });
 
+        // Show overall feedback at the top
         this.showFeedback(progress === 100, totalCorrect, totalQuestions);
     }
 
@@ -104,7 +108,7 @@ export class WorksheetManager {
     showFeedback(isComplete, totalCorrect, totalQuestions) {
         const modalHtml = `
             <div class="results-modal">
-                <h2>Results</h2>
+                <h2>Overall Results</h2>
                 <div class="score">
                     <div class="score-number">${totalCorrect}/${totalQuestions}</div>
                     <div class="score-percentage">${Math.round((totalCorrect / totalQuestions) * 100)}%</div>
@@ -112,7 +116,7 @@ export class WorksheetManager {
                 <div class="message">
                     ${isComplete ? 
                         'Great job! All answers are correct!' : 
-                        'Keep trying! Some answers need improvement.'}
+                        'Keep trying! Check your answers below for detailed feedback.'}
                 </div>
                 <button class="close-modal">Close</button>
             </div>
@@ -140,6 +144,10 @@ export class WorksheetManager {
     }
 
     reset() {
+        // Remove all score displays and notifications
+        document.querySelectorAll('.score-container, .notification').forEach(el => el.remove());
+        
+        // Reset all tasks
         for (const task of this.tasks.values()) {
             task.reset();
         }
@@ -161,32 +169,19 @@ export class WorksheetManager {
         
         if (savedProgress) {
             this.updateProgress(savedProgress.progress.progress);
-
+            
+            // Show attempt info that stays visible
             const lastAttempt = new Date(savedProgress.timestamp);
             const attempts = savedProgress.attempts;
             
-            this.showNotification(
-                `Last attempt: ${lastAttempt.toLocaleDateString()} (Attempt #${attempts})`,
-                'info'
-            );
+            let attemptInfo = document.querySelector('.attempt-info');
+            if (!attemptInfo) {
+                attemptInfo = document.createElement('div');
+                attemptInfo.className = 'attempt-info';
+                document.querySelector('.nav').appendChild(attemptInfo);
+            }
+            attemptInfo.textContent = `Last attempt: ${lastAttempt.toLocaleDateString()} (Attempt #${attempts})`;
         }
-    }
-
-    showNotification(message, type = 'info') {
-        let notification = document.querySelector('.notification');
-        if (!notification) {
-            notification = document.createElement('div');
-            notification.className = 'notification';
-            document.body.appendChild(notification);
-        }
-
-        notification.textContent = message;
-        notification.className = `notification ${type}`;
-        notification.style.display = 'block';
-
-        setTimeout(() => {
-            notification.style.display = 'none';
-        }, 3000);
     }
 }
 

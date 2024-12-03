@@ -1,0 +1,135 @@
+.dictation-score-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dictation-score-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.dictation-score-header h3 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
+
+.dictation-score-points {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.dictation-score-feedback {
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+.dictation-word-analysis {
+    margin-top: 20px;
+    border-top: 1px solid #dee2e6;
+    padding-top: 15px;
+}
+
+.dictation-word-analysis h4 {
+    color: #2c3e50;
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+.word-comparison {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.word-pair {
+    display: flex;
+    align-items: flex-start;
+    padding: 8px;
+    border-radius: 4px;
+    min-width: 120px;
+    flex: 0 1 calc(33.33% - 10px); /* 3 columns by default */
+}
+
+@media (max-width: 768px) {
+    .word-pair {
+        flex: 0 1 calc(50% - 10px); /* 2 columns on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .word-pair {
+        flex: 0 1 100%; /* 1 column on mobile */
+    }
+}
+
+.word-pair.correct {
+    background-color: rgba(40, 167, 69, 0.1);
+    border-left: 3px solid #28a745;
+}
+
+.word-pair.close {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-left: 3px solid #ffc107;
+}
+
+.word-pair.incorrect,
+.word-pair.extra {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-left: 3px solid #dc3545;
+}
+
+.word-number {
+    background: rgba(0,0,0,0.1);
+    color: #495057;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.word-content {
+    flex-grow: 1;
+}
+
+.user-word {
+    font-family: monospace;
+    font-size: 1.1em;
+    word-break: break-word;
+}
+
+.correct-word {
+    color: #dc3545;
+    font-size: 0.9em;
+    margin-top: 2px;
+    font-family: monospace;
+}
+
+.similarity {
+    font-size: 0.8em;
+    color: #6c757d;
+    margin-top: 2px;
+}
+
+.word-pair.correct .user-word {
+    color: #28a745;
+}
+
+.word-pair.close .user-word {
+    color: #ffc107;
+}
+
+.word-pair.incorrect .user-word,
+.word-pair.extra .user-word {
+    color: #dc3545;
+    text-decoration: line-through;
+    text-decoration-color: rgba(220, 53, 69, 0.5);
+}

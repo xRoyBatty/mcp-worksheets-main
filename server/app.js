@@ -1,9 +1,16 @@
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
+// CORS configuration
+app.use(cors({
+    origin: 'http://127.0.0.1:5500', // This allows requests from your creator origin
+    methods: ['GET', 'POST'],        // Allowed methods
+    credentials: true                // Allow credentials
+}));
 
 // Serve static files from the docs directory
 app.use(express.static(path.join(__dirname, '../docs')));
@@ -73,7 +80,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../docs/index.html'));
 });
 
-const PORT = 5500;
+const PORT = 5501;
 app.listen(PORT, '127.0.0.1', () => {
     console.log(`Server running at http://127.0.0.1:${PORT}`);
     console.log(`Serving files from: ${path.join(__dirname, '../docs')}`);

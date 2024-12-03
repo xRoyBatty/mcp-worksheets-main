@@ -1,9 +1,13 @@
 import BaseTask from './baseTask.js';
+import { FillBlanksScoring } from '../scoring/fillBlanks/scoring.js';
+import { FillBlanksScoreDisplay } from '../scoring/fillBlanks/display.js';
 
 export default class FillBlanks extends BaseTask {
     constructor(element) {
         super(element);
         this.inputs = element.querySelectorAll('input[type="text"]');
+        this.scoring = new FillBlanksScoring();
+        this.scoreDisplay = new FillBlanksScoreDisplay();
         this.setupInputHandling();
     }
 
@@ -27,26 +31,24 @@ export default class FillBlanks extends BaseTask {
     }
 
     async check() {
-        let correct = 0;
-        const total = this.inputs.length;
+        // Use scoring system to evaluate answers
+        const score = this.scoring.calculateScore(this.inputs);
 
-        this.inputs.forEach(input => {
-            const expectedAnswer = input.dataset.correct;
-            const userAnswer = input.value.trim().toLowerCase();
-            const isCorrect = userAnswer === expectedAnswer.toLowerCase();
+        // Apply visual feedback
+        this.inputs.forEach((input, index) => {
+            const evaluation = score.details[index];
+            this.setState(input, evaluation.correct ? 'correct' : 'incorrect');
 
-            // Show correct/incorrect state
-            this.setState(input, isCorrect ? 'correct' : 'incorrect');
-
-            // Show correct answer for incorrect responses
-            if (!isCorrect) {
-                input.title = `Correct answer: ${expectedAnswer}`;
+            // Show tooltip with correct answer for incorrect responses
+            if (!evaluation.correct) {
+                input.title = `Correct answer: ${evaluation.correctAnswer}`;
             }
-
-            if (isCorrect) correct++;
         });
 
-        return { correct, total };
+        // Display detailed scoring
+        this.scoreDisplay.displayScore(score, this.element);
+
+        return { correct: score.points, total: score.maxPoints };
     }
 
     reset() {
@@ -55,5 +57,6 @@ export default class FillBlanks extends BaseTask {
             input.title = '';
             this.setState(input, '');
         });
+        this.scoreDisplay.clear();
     }
 }

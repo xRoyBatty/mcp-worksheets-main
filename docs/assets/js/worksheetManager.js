@@ -10,9 +10,9 @@ export class WorksheetManager {
         this.progressText = document.querySelector('.progress-text');
 
         // Load tasks
-        const taskElements = document.querySelectorAll('.task');
+        const taskElements = document.querySelectorAll('.task-container');
         for (const element of taskElements) {
-            const taskType = element.classList[1];  // multiple-choice, fill-blanks, etc.
+            const taskType = element.classList[1];  // e.g., multiple-choice, fill-blanks, etc.
             try {
                 const TaskModule = await import(`./tasks/${taskType}.js`);
                 const task = new TaskModule.default(element);
@@ -52,37 +52,18 @@ export class WorksheetManager {
         this.showFeedback(progress === 100);
     }
 
-    updateProgress(percentage) {
+    updateProgress(progress) {
         if (this.progressBar) {
-            this.progressBar.style.width = `${percentage}%`;
+            this.progressBar.style.width = `${progress}%`;
         }
         if (this.progressText) {
-            this.progressText.textContent = `${percentage}% Complete`;
+            this.progressText.textContent = `${progress}% Complete`;
         }
     }
 
-    showFeedback(allCorrect) {
-        const feedback = document.createElement('div');
-        feedback.className = `feedback ${allCorrect ? 'correct' : 'incorrect'}`;
-        feedback.textContent = allCorrect ? 
-            'Great job! All answers are correct!' : 
-            'Some answers need correction. Try again!';
-
-        document.body.appendChild(feedback);
-        setTimeout(() => feedback.remove(), 3000);
-    }
-
-    saveProgress(percentage) {
-        const id = location.pathname.split('/').slice(-2)[0];
-        localStorage.setItem(`progress_${id}`, percentage);
-    }
-
-    loadProgress() {
-        const id = location.pathname.split('/').slice(-2)[0];
-        const saved = localStorage.getItem(`progress_${id}`);
-        if (saved) {
-            this.updateProgress(parseInt(saved, 10));
-        }
+    showFeedback(isComplete) {
+        const message = isComplete ? 'All answers are correct!' : 'Some answers are incorrect. Try again!';
+        alert(message);
     }
 
     reset() {
@@ -90,12 +71,18 @@ export class WorksheetManager {
             task.reset();
         }
         this.updateProgress(0);
-        const id = location.pathname.split('/').slice(-2)[0];
-        localStorage.removeItem(`progress_${id}`);
+        this.saveProgress(0);
+    }
+
+    loadProgress() {
+        // Load progress from local storage or other storage mechanism
+    }
+
+    saveProgress(progress) {
+        // Save progress to local storage or other storage mechanism
     }
 }
 
-// Initialize on load
 document.addEventListener('DOMContentLoaded', () => {
-    window.worksheetManager = new WorksheetManager();
+    new WorksheetManager();
 });

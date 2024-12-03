@@ -12,7 +12,6 @@ export default class Matching extends BaseTask {
     }
 
     setupSVG() {
-        // Create SVG overlay for lines
         this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.svg.style.position = 'absolute';
         this.svg.style.top = '0';
@@ -23,7 +22,6 @@ export default class Matching extends BaseTask {
         this.pairs.style.position = 'relative';
         this.pairs.insertBefore(this.svg, this.pairs.firstChild);
         
-        // Update SVG size on window resize
         window.addEventListener('resize', () => this.updateLines());
     }
 
@@ -31,7 +29,6 @@ export default class Matching extends BaseTask {
         this.items.forEach(item => {
             item.addEventListener('click', () => this.handleClick(item));
             
-            // Keyboard navigation
             item.setAttribute('tabindex', '0');
             item.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -52,37 +49,22 @@ export default class Matching extends BaseTask {
             this.selected.classList.remove('selected');
             this.selected = null;
         } else {
-            // Try to make a connection
-            const pair1 = this.selected.dataset.pair;
-            const pair2 = item.dataset.pair;
-            
-            if (pair1 === pair2) {
-                // Valid match
-                this.connections.push({
-                    from: this.selected,
-                    to: item,
-                    correct: true
-                });
-                this.selected.classList.remove('selected');
-                this.drawLines();
-            } else {
-                // Invalid match - show feedback
-                this.selected.classList.add('incorrect');
-                item.classList.add('incorrect');
-                setTimeout(() => {
-                    this.selected.classList.remove('incorrect', 'selected');
-                    item.classList.remove('incorrect');
-                }, 1000);
-            }
+            // Make a connection without immediate validation
+            this.connections.push({
+                from: this.selected,
+                to: item,
+                pairId1: this.selected.dataset.pair,
+                pairId2: item.dataset.pair
+            });
+            this.selected.classList.remove('selected');
+            this.drawLines('#666');
             this.selected = null;
         }
     }
 
-    drawLines() {
-        // Clear existing lines
+    drawLines(color = '#666') {
         this.svg.innerHTML = '';
         
-        // Draw new lines
         this.connections.forEach(conn => {
             const rect1 = conn.from.getBoundingClientRect();
             const rect2 = conn.to.getBoundingClientRect();
@@ -98,14 +80,13 @@ export default class Matching extends BaseTask {
             line.setAttribute('y1', y1);
             line.setAttribute('x2', x2);
             line.setAttribute('y2', y2);
-            line.setAttribute('stroke', conn.correct ? '#28a745' : '#dc3545');
+            line.setAttribute('stroke', conn.correct ? '#28a745' : color);
             line.setAttribute('stroke-width', '2');
             this.svg.appendChild(line);
         });
     }
 
     updateLines() {
-        // Update SVG size
         const rect = this.pairs.getBoundingClientRect();
         this.svg.setAttribute('width', rect.width);
         this.svg.setAttribute('height', rect.height);
@@ -120,25 +101,29 @@ export default class Matching extends BaseTask {
 
         // Check each connection
         this.connections.forEach(conn => {
-            if (conn.correct) correct++;
-        });
-
-        // Show feedback for unmatched items
-        this.items.forEach(item => {
-            const isMatched = this.connections.some(conn => 
-                conn.from === item || conn.to === item
-            );
-            if (!isMatched) {
-                item.classList.add('incorrect');
-                setTimeout(() => item.classList.remove('incorrect'), 2000);
+            const isCorrect = conn.pairId1 === conn.pairId2;
+            conn.correct = isCorrect;
+            if (isCorrect) {
+                correct++;
+                conn.from.classList.add('correct');
+                conn.to.classList.add('correct');
+            } else {
+                conn.from.classList.add('incorrect');
+                conn.to.classList.add('incorrect');
+                setTimeout(() => {
+                    conn.from.classList.remove('incorrect');
+                    conn.to.classList.remove('incorrect');
+                }, 2000);
             }
         });
+
+        // Update line colors with feedback
+        this.drawLines();
 
         return { correct, total: totalPairs };
     }
 
     reset() {
-        // Clear all states and connections
         this.connections = [];
         this.selected = null;
         this.items.forEach(item => {

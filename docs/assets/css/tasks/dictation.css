@@ -1,0 +1,68 @@
+/* Dictation Task Styles */
+.dictation .controls {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.dictation .play-btn {
+    padding: 0.5rem 1rem;
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.dictation .play-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.dictation .speed-btn {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.dictation .speed-btn.active {
+    background: #e6f3ff;
+    border-color: #0066cc;
+    color: #0066cc;
+}
+
+.dictation .attempts {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.dictation textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.5;
+}
+
+.dictation textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 2px rgba(0,102,204,0.2);
+}
+
+/* States */
+.dictation textarea.correct {
+    border-color: #28a745;
+    background: #d4edda;
+}
+
+.dictation textarea.incorrect {
+    border-color: #dc3545;
+    background: #f8d7da;
+}

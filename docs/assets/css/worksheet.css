@@ -1,0 +1,167 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.5;
+    color: #333;
+    background: #f8f9fa;
+}
+
+/* Variables */
+:root {
+    --color-primary: #0066cc;
+    --color-secondary: #666;
+    --color-border: #ddd;
+    --color-success: #28a745;
+    --color-error: #dc3545;
+    
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    
+    --radius-sm: 4px;
+    --radius-md: 8px;
+}
+
+/* Navigation */
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: white;
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.back-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background: rgba(0, 102, 204, 0.1);
+}
+
+/* Progress Bar */
+.progress {
+    flex: 1;
+    background: #eee;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--color-primary);
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 0.8rem;
+    text-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+
+/* Voice Control */
+.voice-control {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.voice-select {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+}
+
+/* Main Content */
+.worksheet {
+    max-width: 800px;
+    margin: var(--spacing-lg) auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* Worksheet Header */
+.worksheet-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.worksheet-header h1 {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.worksheet-meta {
+    color: var(--color-secondary);
+}
+
+/* Task Container */
+.task-container {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav {
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+    }
+
+    .progress {
+        order: 1;
+        width: 100%;
+    }
+
+    .voice-control {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .worksheet {
+        padding: var(--spacing-md);
+    }
+}
+
+/* Accessibility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.focus-visible:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}

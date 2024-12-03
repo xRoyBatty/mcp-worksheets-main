@@ -1,0 +1,58 @@
+/* Matching Task Styles */
+.matching .pairs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.matching .item {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+.matching .item:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.matching .item.selected {
+    border-color: #0066cc;
+    background: #e6f3ff;
+}
+
+.matching .item.correct {
+    border-color: #28a745;
+    background: #d4edda;
+}
+
+.matching .item.incorrect {
+    border-color: #dc3545;
+    background: #f8d7da;
+}
+
+/* Connection line */
+.matching .connection {
+    stroke: #0066cc;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
+.matching .connection.correct {
+    stroke: #28a745;
+}
+
+.matching .connection.incorrect {
+    stroke: #dc3545;
+}
+
+@media (max-width: 600px) {
+    .matching .pairs {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}

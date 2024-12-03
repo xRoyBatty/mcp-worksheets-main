@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worksheet Creator | ESL Worksheets</title>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="creator.css">
+</head>
+<body>
+    <div class="creator-container">
+        <header class="creator-header">
+            <h1>Worksheet Creator</h1>
+        </header>
+
+        <main class="creator-main">
+            <form id="worksheetForm" class="creator-form">
+                <!-- Metadata Section -->
+                <section class="metadata-section">
+                    <h2>Worksheet Details</h2>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="level">Level</label>
+                        <select id="level" required>
+                            <option value="a1">A1</option>
+                            <option value="a2">A2</option>
+                            <option value="b1">B1</option>
+                            <option value="b2">B2</option>
+                            <option value="c1">C1</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="skills">Skills Focus</label>
+                        <select id="skills" multiple required>
+                            <option value="grammar">Grammar</option>
+                            <option value="vocabulary">Vocabulary</option>
+                            <option value="reading">Reading</option>
+                            <option value="listening">Listening</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- Tasks Section -->
+                <section class="tasks-section">
+                    <h2>Tasks</h2>
+                    <div id="tasksList"></div>
+                    <div class="task-buttons">
+                        <button type="button" data-task-type="multiChoice">Add Multiple Choice</button>
+                        <button type="button" data-task-type="fillBlanks">Add Fill Blanks</button>
+                        <button type="button" data-task-type="matching">Add Matching</button>
+                        <button type="button" data-task-type="dictation">Add Dictation</button>
+                    </div>
+                </section>
+
+                <button type="submit" class="create-btn">Create Worksheet</button>
+            </form>
+
+            <div id="preview" class="preview-section">
+                <h2>Preview</h2>
+                <div class="preview-content"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="creator.js" type="module"></script>
+</body>
+</html>

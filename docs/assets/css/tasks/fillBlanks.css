@@ -1,0 +1,29 @@
+/* Fill in the Blanks Styles */
+.fill-blanks .content {
+    line-height: 2;
+}
+
+.fill-blanks input {
+    width: 120px;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 0 4px;
+}
+
+.fill-blanks input:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 2px rgba(0,102,204,0.2);
+}
+
+/* States */
+.fill-blanks input.correct {
+    border-color: #28a745;
+    background: #d4edda;
+}
+
+.fill-blanks input.incorrect {
+    border-color: #dc3545;
+    background: #f8d7da;
+}

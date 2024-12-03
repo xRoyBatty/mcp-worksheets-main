@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Simple vs Present Perfect | ESL Worksheets</title>
+    <link rel="stylesheet" href="../../assets/css/worksheet.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/multiChoice.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/fillBlanks.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/matching.css">
+</head>
+<body>
+    <nav class="nav">
+        <a href="../../index.html" class="back-btn">Back to Worksheets</a>
+        <div class="progress">
+            <div class="progress-bar"></div>
+            <span class="progress-text">0% Complete</span>
+        </div>
+        <div class="voice-control">
+            <label for="globalVoice">Voice:</label>
+            <select id="globalVoice" class="voice-select" aria-label="Select voice for audio playback"></select>
+        </div>
+    </nav>
+
+    <main class="worksheet">
+        <header class="worksheet-header">
+            <h1>Past Simple vs Present Perfect</h1>
+            <div class="worksheet-meta">
+                <span>Level: B1</span>
+                <span>Time: 20 minutes</span>
+                <span>Skills: Grammar</span>
+            </div>
+        </header>
+
+        <div class="tasks">
+            <!-- Understanding Time References -->
+            <section class="task-container task multiple-choice" aria-labelledby="task1-title">
+                <h2 id="task1-title">1. Understanding Time References</h2>
+                <p class="instructions">Choose the correct tense based on the time reference.</p>
+                
+                <div class="content">
+                    <div class="question">
+                        <p>Which tense should we use with "last week"?</p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q1" value="1" data-correct="true">
+                                <span>Past Simple</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="q1" value="2">
+                                <span>Present Perfect</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <p>Which tense should we use with "ever"?</p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q2" value="1">
+                                <span>Past Simple</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="q2" value="2" data-correct="true">
+                                <span>Present Perfect</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sentence Completion -->
+            <section class="task-container task fill-blanks" aria-labelledby="task2-title">
+                <h2 id="task2-title">2. Sentence Completion</h2>
+                <p class="instructions">Complete the sentences using the correct form of the verbs in brackets.</p>
+                
+                <div class="content">
+                    <p>1. I <input type="text" data-correct="have never been" data-index="1" aria-label="Fill in the blank for sentence 1"> (never/be) to Paris.</p>
+                    <p>2. She <input type="text" data-correct="visited" data-index="2" aria-label="Fill in the blank for sentence 2"> (visit) her grandmother last Sunday.</p>
+                    <p>3. They <input type="text" data-correct="have lived" data-index="3" aria-label="Fill in the blank for sentence 3"> (live) in London since 2010.</p>
+                </div>
+            </section>
+
+            <!-- Time Expression Matching -->
+            <section class="task-container task matching" aria-labelledby="task3-title">
+                <h2 id="task3-title">3. Time Expression Matching</h2>
+                <p class="instructions">Match each time expression with the correct tense.</p>
+                
+                <div class="content">
+                    <div class="pairs">
+                        <div class="left">
+                            <div class="item" data-pair="past" tabindex="0" role="button" aria-label="Match item: yesterday">yesterday</div>
+                            <div class="item" data-pair="past" tabindex="0" role="button" aria-label="Match item: two days ago">two days ago</div>
+                            <div class="item" data-pair="perfect" tabindex="0" role="button" aria-label="Match item: since Monday">since Monday</div>
+                            <div class="item" data-pair="perfect" tabindex="0" role="button" aria-label="Match item: for three years">for three years</div>
+                        </div>
+                        <div class="right">
+                            <div class="item" data-pair="past" tabindex="0" role="button" aria-label="Match item: Past Simple">Past Simple</div>
+                            <div class="item" data-pair="past" tabindex="0" role="button" aria-label="Match item: Past Simple">Past Simple</div>
+                            <div class="item" data-pair="perfect" tabindex="0" role="button" aria-label="Match item: Present Perfect">Present Perfect</div>
+                            <div class="item" data-pair="perfect" tabindex="0" role="button" aria-label="Match item: Present Perfect">Present Perfect</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <button type="button" id="check">Check Answers</button>
+            <button type="button" id="retry">Try Again</button>
+        </footer>
+    </main>
+
+    <script src="../../assets/js/worksheetManager.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+    "title": "Past Simple vs Present Perfect",
+    "level": "B1",
+    "category": "Grammar",
+    "tags": ["grammar", "tenses", "past-simple", "present-perfect"],
+    "description": "Practice when to use Past Simple and when to use Present Perfect through interactive exercises.",
+    "objectives": [
+        "Understand time references for each tense",
+        "Use correct verb forms",
+        "Identify appropriate tense based on context",
+        "Master common time expressions"
+    ],
+    "estimatedTime": "20 minutes",
+    "taskTypes": ["multiChoice", "fillBlanks", "matching"],
+    "skillsFocus": ["grammar"],
+    "prerequisites": ["Basic understanding of verb forms", "Knowledge of simple past and present tenses"]
+}

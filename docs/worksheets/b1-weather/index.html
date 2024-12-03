@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather and Seasons | ESL Worksheets</title>
+    <link rel="stylesheet" href="../../assets/css/worksheet.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/multiChoice.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/fillBlanks.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/matching.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/dictation.css">
+</head>
+<body>
+    <nav class="nav">
+        <a href="../../index.html" class="back-btn">Back to Worksheets</a>
+        <div class="progress">
+            <div class="progress-bar"></div>
+            <span class="progress-text">0% Complete</span>
+        </div>
+        <div class="level">Level: B1</div>
+        <div class="voice">
+            <label>Voice:</label>
+            <select id="globalVoice"></select>
+        </div>
+    </nav>
+
+    <main class="worksheet">
+        <header class="header">
+            <h1>Weather and Seasons</h1>
+            <div class="meta">
+                <span>Level: B1</span>
+                <span>Time: 20 minutes</span>
+                <span>Skills: Listening, Vocabulary</span>
+            </div>
+        </header>
+
+        <div class="tasks">
+            <!-- Vocabulary Check -->
+            <section class="task multiChoice">
+                <h2>1. Vocabulary Check</h2>
+                <p class="instructions">Listen to each description and choose the correct weather phenomenon.</p>
+                
+                <div class="content">
+                    <div class="question">
+                        <p>What type of weather condition is being described?</p>
+                        <div class="options">
+                            <label>
+                                <input type="radio" name="q1" value="1" data-correct="true">
+                                <span>A dense fog that reduces visibility to near zero</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="q1" value="2">
+                                <span>Heavy rain with thunder and lightning</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="q1" value="3">
+                                <span>Light drizzle with occasional wind</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weather Report -->
+            <section class="task fillBlanks">
+                <h2>2. Weather Report</h2>
+                <p class="instructions">Complete the weather report using the words you hear.</p>
+                
+                <div class="content">
+                    <p>Today's forecast shows 
+                        <input type="text" data-correct="scattered" data-index="1"> 
+                        showers in the morning, followed by 
+                        <input type="text" data-correct="clear" data-index="2"> 
+                        skies in the afternoon. The temperature will reach a 
+                        <input type="text" data-correct="maximum" data-index="3"> 
+                        of 25°C.</p>
+                </div>
+            </section>
+
+            <!-- Season Matching -->
+            <section class="task matching">
+                <h2>3. Season Matching</h2>
+                <p class="instructions">Match each season with its typical weather description.</p>
+                
+                <div class="content">
+                    <div class="pairs">
+                        <div class="left">
+                            <div class="item" data-pair="spring">Spring</div>
+                            <div class="item" data-pair="summer">Summer</div>
+                            <div class="item" data-pair="autumn">Autumn</div>
+                            <div class="item" data-pair="winter">Winter</div>
+                        </div>
+                        <div class="right">
+                            <div class="item" data-pair="spring">Mild temperatures and occasional rain showers</div>
+                            <div class="item" data-pair="summer">Hot and humid with chance of thunderstorms</div>
+                            <div class="item" data-pair="autumn">Cool and windy with falling leaves</div>
+                            <div class="item" data-pair="winter">Cold temperatures and possible snowfall</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weather Forecast Dictation -->
+            <section class="task dictation">
+                <h2>4. Weather Forecast Dictation</h2>
+                <p class="instructions">Listen and type what you hear.</p>
+                
+                <div class="content">
+                    <div class="controls">
+                        <button class="play-btn">Play</button>
+                        <div class="speed-controls">
+                            <button class="speed-btn" data-speed="0.75">0.75x</button>
+                            <button class="speed-btn active" data-speed="1">1x</button>
+                        </div>
+                        <span class="attempts">Plays left: 3</span>
+                    </div>
+                    <textarea data-text="Tomorrow will bring partly cloudy conditions with a gentle breeze. Expect temperatures to range between 18 and 23 degrees Celsius." 
+                              data-max-attempts="3"
+                              placeholder="Type what you hear..."></textarea>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <button type="button" id="check">Check Answers</button>
+            <button type="button" id="retry">Try Again</button>
+        </footer>
+    </main>
+
+    <script src="../../assets/js/worksheetManager.js" type="module"></script>
+</body>
+</html>

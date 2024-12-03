@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[Worksheet Title] | ESL Worksheets</title>
-    <!-- Only necessary CSS -->
-    <link rel="stylesheet" href="../../assets/css/worksheet.css">
-    <!-- Include only CSS for tasks you use -->
-    <link rel="stylesheet" href="../../assets/css/tasks/multiChoice.css">
-    <link rel="stylesheet" href="../../assets/css/tasks/fillBlanks.css">
-    <link rel="stylesheet" href="../../assets/css/tasks/matching.css">
-    <link rel="stylesheet" href="../../assets/css/tasks/dictation.css">
+    <link rel="stylesheet" href="../assets/css/worksheet.css">
+    <link rel="stylesheet" href="../assets/css/tasks/multiChoice.css">
+    <link rel="stylesheet" href="../assets/css/tasks/fillBlanks.css">
+    <link rel="stylesheet" href="../assets/css/tasks/matching.css">
+    <link rel="stylesheet" href="../assets/css/tasks/dictation.css">
+    <link rel="stylesheet" href="../assets/css/components/notification.css">
 </head>
 <body>
     <nav class="nav">
@@ -37,83 +36,7 @@
         </header>
 
         <div class="tasks">
-            <!-- Multiple Choice Template -->
-            <section class="task multiple-choice">
-                <h2>[Task Title]</h2>
-                <p class="instructions">[Instructions]</p>
-                
-                <div class="content">
-                    <div class="question">
-                        <p>[Question Text]</p>
-                        <div class="options">
-                            <label>
-                                <input type="radio" name="q1" value="1">
-                                <span>[Option 1]</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="q1" value="2" data-correct="true">
-                                <span>[Option 2]</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="q1" value="3">
-                                <span>[Option 3]</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Fill in the Blanks Template -->
-            <section class="task fill-blanks">
-                <h2>[Task Title]</h2>
-                <p class="instructions">[Instructions]</p>
-                
-                <div class="content">
-                    <p>
-                        [Text before] 
-                        <input type="text" data-correct="[answer]" data-index="1">
-                        [Text after]
-                    </p>
-                </div>
-            </section>
-
-            <!-- Matching Template -->
-            <section class="task matching">
-                <h2>[Task Title]</h2>
-                <p class="instructions">[Instructions]</p>
-                
-                <div class="content">
-                    <div class="pairs">
-                        <div class="left">
-                            <div class="item" data-pair="a">[Left Item 1]</div>
-                            <div class="item" data-pair="b">[Left Item 2]</div>
-                        </div>
-                        <div class="right">
-                            <div class="item" data-pair="b">[Right Item 2]</div>
-                            <div class="item" data-pair="a">[Right Item 1]</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Dictation Template -->
-            <section class="task dictation">
-                <h2>[Task Title]</h2>
-                <p class="instructions">[Instructions]</p>
-                
-                <div class="content">
-                    <div class="controls">
-                        <button class="play-btn">Play</button>
-                        <div class="speed-controls">
-                            <button class="speed-btn" data-speed="0.75">0.75x</button>
-                            <button class="speed-btn active" data-speed="1">1x</button>
-                        </div>
-                        <span class="attempts">Plays left: 3</span>
-                    </div>
-                    <textarea data-text="[Dictation Text]" data-max-attempts="3"
-                              placeholder="Type what you hear..."></textarea>
-                </div>
-            </section>
+            <!-- Tasks will be inserted here -->
         </div>
 
         <footer class="footer">
@@ -122,6 +45,6 @@
         </footer>
     </main>
 
-    <script src="../../assets/js/worksheetManager.js" type="module"></script>
+    <script src="../assets/js/worksheetManager.js" type="module"></script>
 </body>
 </html>

@@ -48,3 +48,54 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+.task-form {
+    background: #f5f5f5;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    position: relative;
+}
+
+.task-form h3 {
+    margin-top: 0;
+}
+
+.option, .pair {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.option input[type="text"], 
+.pair input[type="text"] {
+    flex: 1;
+}
+
+.remove-task {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: none;
+    z-index: 1000;
+}
+
+.notification.success { background: #4CAF50; color: white; }
+.notification.error { background: #f44336; color: white; }
+.notification.info { background: #2196F3; color: white; }

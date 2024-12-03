@@ -13,10 +13,26 @@
     <div class="creator-container">
         <header class="creator-header">
             <h1>Worksheet Creator</h1>
+            <div class="dev-mode-controls">
+                <label>
+                    <input type="checkbox" id="devMode"> Development Mode
+                    <span class="tooltip">Saves worksheets locally instead of GitHub</span>
+                </label>
+            </div>
         </header>
 
         <main class="creator-main">
             <form id="worksheetForm" class="creator-form">
+                <!-- GitHub Settings (shown only in production mode) -->
+                <section class="github-settings" style="display: none;">
+                    <h2>GitHub Settings</h2>
+                    <div class="form-group">
+                        <label for="githubToken">GitHub Token</label>
+                        <input type="password" id="githubToken">
+                        <small>Required for publishing worksheets to GitHub</small>
+                    </div>
+                </section>
+
                 <!-- Metadata Section -->
                 <section class="metadata-section">
                     <h2>Worksheet Details</h2>
@@ -35,13 +51,25 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" required>
+                            <option value="grammar">Grammar</option>
+                            <option value="vocabulary">Vocabulary</option>
+                            <option value="pronunciation">Pronunciation</option>
+                            <option value="conversation">Conversation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="skills">Skills Focus</label>
                         <select id="skills" multiple required>
                             <option value="grammar">Grammar</option>
                             <option value="vocabulary">Vocabulary</option>
                             <option value="reading">Reading</option>
                             <option value="listening">Listening</option>
+                            <option value="speaking">Speaking</option>
+                            <option value="writing">Writing</option>
                         </select>
+                        <small>Hold Ctrl/Cmd to select multiple skills</small>
                     </div>
                 </section>
 
@@ -65,8 +93,45 @@
                 <div class="preview-content"></div>
             </div>
         </main>
+
+        <!-- Development Instructions -->
+        <div class="dev-instructions" style="display: none;">
+            <h3>Development Instructions</h3>
+            <ol>
+                <li>Start a local server (one of these commands):
+                    <pre>python -m http.server
+npm install -g http-server && http-server</pre>
+                </li>
+                <li>Enable "Development Mode" to save worksheets locally</li>
+                <li>Created worksheets will be saved in your browser's localStorage</li>
+                <li>Export/Import buttons below allow you to save/load your work</li>
+            </ol>
+            <div class="dev-controls">
+                <button id="exportWorksheets">Export Worksheets</button>
+                <button id="importWorksheets">Import Worksheets</button>
+            </div>
+        </div>
     </div>
 
     <script src="creator.js" type="module"></script>
+    <script>
+        // Show/hide development instructions
+        const devMode = document.getElementById('devMode');
+        const devInstructions = document.querySelector('.dev-instructions');
+        const githubSettings = document.querySelector('.github-settings');
+        
+        devMode.addEventListener('change', (e) => {
+            devInstructions.style.display = e.target.checked ? 'block' : 'none';
+            githubSettings.style.display = e.target.checked ? 'none' : 'block';
+            localStorage.setItem('devMode', e.target.checked);
+        });
+
+        // Restore dev mode setting
+        if (localStorage.getItem('devMode') === 'true') {
+            devMode.checked = true;
+            devInstructions.style.display = 'block';
+            githubSettings.style.display = 'none';
+        }
+    </script>
 </body>
 </html>

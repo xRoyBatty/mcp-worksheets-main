@@ -101,24 +101,60 @@
                 applyFilters();
             });
         });
-
+    
         document.getElementById('search').addEventListener('input', applyFilters);
-
+    
         function applyFilters() {
             const activeLevel = document.querySelector('.level-filter button.active').dataset.level;
             const activeSkill = document.querySelector('.skill-filter button.active').dataset.skill;
             const searchText = document.getElementById('search').value.toLowerCase();
-
+    
             document.querySelectorAll('.worksheet-card').forEach(card => {
                 const matchesLevel = card.dataset.level === activeLevel;
                 const matchesSkill = card.dataset.skills.includes(activeSkill);
                 const matchesSearch = !searchText || 
                     card.textContent.toLowerCase().includes(searchText);
-
+    
                 card.style.display = 
                     matchesLevel && matchesSkill && matchesSearch ? 'block' : 'none';
             });
         }
+    
+        // Add the new worksheet loading function
+        async function loadWorksheets() {
+            try {
+                const response = await fetch('data/worksheets.json');
+                const data = await response.json();
+                const worksheetGrid = document.querySelector('.worksheet-grid');
+                worksheetGrid.innerHTML = '';  // Clear existing static content
+                
+                data.worksheets.forEach(worksheet => {
+                    const card = document.createElement('a');
+                    card.href = `worksheets/${worksheet.path}/index.html`;
+                    card.className = 'worksheet-card';
+                    card.dataset.level = worksheet.level;
+                    card.dataset.skills = worksheet.skills.join(' ');
+                    
+                    card.innerHTML = `
+                        <h2>${worksheet.title}</h2>
+                        <div class="worksheet-meta">
+                            <span class="level">${worksheet.level.toUpperCase()}</span>
+                            <span class="skills">${worksheet.skills.join(', ')}</span>
+                        </div>
+                        <p class="worksheet-description">
+                            ${worksheet.metadata?.description || ''}
+                        </p>
+                    `;
+                    
+                    worksheetGrid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error loading worksheets:', error);
+            }
+        }
+    
+        // Load worksheets when page loads
+        document.addEventListener('DOMContentLoaded', loadWorksheets);
     </script>
 </body>
 </html>

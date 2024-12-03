@@ -1,0 +1,34 @@
+{
+  "title": "Past Continuous Practice",
+  "level": "b1",
+  "category": "grammar",
+  "skills": [
+    "grammar",
+    "reading"
+  ],
+  "tasks": [
+    {
+      "type": "multiChoice",
+      "title": "Choose the correct form",
+      "instructions": "Select the correct past continuous form",
+      "question": "What _____ you _____ when the phone rang?",
+      "options": [
+        {
+          "text": "were / doing",
+          "value": 0,
+          "correct": true
+        },
+        {
+          "text": "was / doing",
+          "value": 1,
+          "correct": false
+        },
+        {
+          "text": "were / do",
+          "value": 2,
+          "correct": false
+        }
+      ]
+    }
+  ]
+}

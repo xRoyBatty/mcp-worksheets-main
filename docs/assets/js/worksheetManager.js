@@ -8,14 +8,11 @@ export class WorksheetManager {
     }
 
     async init() {
-        // Find progress elements
         this.progressBar = document.querySelector('.progress-bar');
         this.progressText = document.querySelector('.progress-text');
 
-        // Load tasks
         const taskElements = document.querySelectorAll('.task-container');
         for (const element of taskElements) {
-            // Get the task type from the third class
             const taskType = Array.from(element.classList)
                 .find(cls => !['task-container', 'task'].includes(cls))
                 ?.replace('-', '');
@@ -31,11 +28,9 @@ export class WorksheetManager {
             }
         }
 
-        // Setup buttons
         document.getElementById('check')?.addEventListener('click', () => this.checkAnswers());
         document.getElementById('retry')?.addEventListener('click', () => this.reset());
 
-        // Initialize user
         const userId = this.getUserId();
         if (userId) {
             this.progressManager.setUser(userId);
@@ -46,11 +41,9 @@ export class WorksheetManager {
     }
 
     getUserId() {
-        // Try to get stored user ID
         const userId = localStorage.getItem('userId');
         if (userId) return userId;
 
-        // For development, generate a random ID if none exists
         if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
             const devId = 'dev_' + Math.random().toString(36).substr(2, 9);
             localStorage.setItem('userId', devId);
@@ -61,8 +54,6 @@ export class WorksheetManager {
     }
 
     promptForUserId() {
-        // Simple prompt for user identification
-        // In production, this should be replaced with proper authentication
         const userId = prompt('Please enter your student ID or email:');
         if (userId) {
             localStorage.setItem('userId', userId);
@@ -71,7 +62,6 @@ export class WorksheetManager {
     }
 
     getWorksheetId() {
-        // Generate a unique ID for this worksheet based on its path
         const path = window.location.pathname;
         return path.replace(/[^a-zA-Z0-9]/g, '_');
     }
@@ -80,7 +70,6 @@ export class WorksheetManager {
         let totalCorrect = 0;
         let totalQuestions = 0;
 
-        // Check each task
         for (const task of this.tasks.values()) {
             const result = await task.check();
             if (result.total) {
@@ -89,11 +78,9 @@ export class WorksheetManager {
             }
         }
 
-        // Update progress
         const progress = Math.round((totalCorrect / totalQuestions) * 100);
         this.updateProgress(progress);
 
-        // Save progress
         const worksheetId = this.getWorksheetId();
         this.progressManager.saveProgress(worksheetId, {
             totalCorrect,
@@ -101,22 +88,55 @@ export class WorksheetManager {
             progress
         });
 
-        // Show feedback
-        this.showFeedback(progress === 100);
+        this.showFeedback(progress === 100, totalCorrect, totalQuestions);
     }
 
     updateProgress(progress) {
         if (this.progressBar) {
             this.progressBar.style.width = `${progress}%`;
+            this.progressBar.style.backgroundColor = progress === 100 ? '#28a745' : '#007bff';
         }
         if (this.progressText) {
             this.progressText.textContent = `${progress}% Complete`;
         }
     }
 
-    showFeedback(isComplete) {
-        const message = isComplete ? 'All answers are correct!' : 'Some answers are incorrect. Try again!';
-        alert(message);
+    showFeedback(isComplete, totalCorrect, totalQuestions) {
+        const modalHtml = `
+            <div class="results-modal">
+                <h2>Results</h2>
+                <div class="score">
+                    <div class="score-number">${totalCorrect}/${totalQuestions}</div>
+                    <div class="score-percentage">${Math.round((totalCorrect / totalQuestions) * 100)}%</div>
+                </div>
+                <div class="message">
+                    ${isComplete ? 
+                        'Great job! All answers are correct!' : 
+                        'Keep trying! Some answers need improvement.'}
+                </div>
+                <button class="close-modal">Close</button>
+            </div>
+        `;
+
+        let modal = document.querySelector('.modal-overlay');
+        if (modal) {
+            modal.remove();
+        }
+
+        modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.innerHTML = modalHtml;
+        document.body.appendChild(modal);
+
+        modal.querySelector('.close-modal').addEventListener('click', () => {
+            modal.remove();
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
     }
 
     reset() {
@@ -124,15 +144,15 @@ export class WorksheetManager {
             task.reset();
         }
         this.updateProgress(0);
-        this.saveProgress(0);
     }
 
     loadProgress() {
-        // Load progress from local storage or other storage mechanism
+        const progress = localStorage.getItem('worksheet_progress');
+        return progress ? JSON.parse(progress) : null;
     }
 
     saveProgress(progress) {
-        // Save progress to local storage or other storage mechanism
+        localStorage.setItem('worksheet_progress', JSON.stringify(progress));
     }
 
     loadSavedProgress() {
@@ -140,14 +160,11 @@ export class WorksheetManager {
         const savedProgress = this.progressManager.getProgress(worksheetId);
         
         if (savedProgress) {
-            // Update progress bar
             this.updateProgress(savedProgress.progress.progress);
 
-            // Show last attempt info
             const lastAttempt = new Date(savedProgress.timestamp);
             const attempts = savedProgress.attempts;
             
-            // Optionally show a message about previous attempts
             this.showNotification(
                 `Last attempt: ${lastAttempt.toLocaleDateString()} (Attempt #${attempts})`,
                 'info'
@@ -156,7 +173,6 @@ export class WorksheetManager {
     }
 
     showNotification(message, type = 'info') {
-        // Create or get notification element
         let notification = document.querySelector('.notification');
         if (!notification) {
             notification = document.createElement('div');
@@ -164,21 +180,16 @@ export class WorksheetManager {
             document.body.appendChild(notification);
         }
 
-        // Set message and type
         notification.textContent = message;
         notification.className = `notification ${type}`;
-
-        // Show notification
         notification.style.display = 'block';
 
-        // Hide after 3 seconds
         setTimeout(() => {
             notification.style.display = 'none';
         }, 3000);
     }
 }
 
-// Initialize the worksheet manager when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new WorksheetManager();
 });

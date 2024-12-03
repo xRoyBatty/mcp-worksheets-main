@@ -12,7 +12,13 @@ export class WorksheetManager {
         // Load tasks
         const taskElements = document.querySelectorAll('.task-container');
         for (const element of taskElements) {
-            const taskType = element.classList[1];  // e.g., multiple-choice, fill-blanks, etc.
+            // Get the task type from the third class (e.g., multiple-choice, fill-blanks, etc.)
+            const taskType = Array.from(element.classList)
+                .find(cls => !['task-container', 'task'].includes(cls))
+                ?.replace('-', ''); // Convert kebab-case to camelCase
+            
+            if (!taskType) continue;
+
             try {
                 const TaskModule = await import(`./tasks/${taskType}.js`);
                 const task = new TaskModule.default(element);

@@ -17,17 +17,16 @@
             <div class="progress-bar"></div>
             <span class="progress-text">0% Complete</span>
         </div>
-        <div class="level">Level: B1</div>
-        <div class="voice">
-            <label>Voice:</label>
-            <select id="globalVoice"></select>
+        <div class="voice-control">
+            <label for="globalVoice">Voice:</label>
+            <select id="globalVoice" class="voice-select" aria-label="Select voice for audio playback"></select>
         </div>
     </nav>
 
     <main class="worksheet">
-        <header class="header">
+        <header class="worksheet-header">
             <h1>Weather and Seasons</h1>
-            <div class="meta">
+            <div class="worksheet-meta">
                 <span>Level: B1</span>
                 <span>Time: 20 minutes</span>
                 <span>Skills: Listening, Vocabulary</span>
@@ -36,8 +35,8 @@
 
         <div class="tasks">
             <!-- Vocabulary Check -->
-            <section class="task multiChoice">
-                <h2>1. Vocabulary Check</h2>
+            <section class="task-container task multiple-choice" aria-labelledby="task1-title">
+                <h2 id="task1-title">1. Vocabulary Check</h2>
                 <p class="instructions">Listen to each description and choose the correct weather phenomenon.</p>
                 
                 <div class="content">
@@ -62,68 +61,73 @@
             </section>
 
             <!-- Weather Report -->
-            <section class="task fillBlanks">
-                <h2>2. Weather Report</h2>
+            <section class="task-container task fill-blanks" aria-labelledby="task2-title">
+                <h2 id="task2-title">2. Weather Report</h2>
                 <p class="instructions">Complete the weather report using the words you hear.</p>
                 
                 <div class="content">
                     <p>Today's forecast shows 
-                        <input type="text" data-correct="scattered" data-index="1"> 
+                        <input type="text" data-correct="scattered" data-index="1" aria-label="First blank"> 
                         showers in the morning, followed by 
-                        <input type="text" data-correct="clear" data-index="2"> 
+                        <input type="text" data-correct="clear" data-index="2" aria-label="Second blank"> 
                         skies in the afternoon. The temperature will reach a 
-                        <input type="text" data-correct="maximum" data-index="3"> 
+                        <input type="text" data-correct="maximum" data-index="3" aria-label="Third blank"> 
                         of 25°C.</p>
                 </div>
             </section>
 
             <!-- Season Matching -->
-            <section class="task matching">
-                <h2>3. Season Matching</h2>
+            <section class="task-container task matching" aria-labelledby="task3-title">
+                <h2 id="task3-title">3. Season Matching</h2>
                 <p class="instructions">Match each season with its typical weather description.</p>
                 
                 <div class="content">
                     <div class="pairs">
                         <div class="left">
-                            <div class="item" data-pair="spring">Spring</div>
-                            <div class="item" data-pair="summer">Summer</div>
-                            <div class="item" data-pair="autumn">Autumn</div>
-                            <div class="item" data-pair="winter">Winter</div>
+                            <div class="item" data-pair="spring" tabindex="0" role="button" aria-label="Match item: Spring">Spring</div>
+                            <div class="item" data-pair="summer" tabindex="0" role="button" aria-label="Match item: Summer">Summer</div>
+                            <div class="item" data-pair="autumn" tabindex="0" role="button" aria-label="Match item: Autumn">Autumn</div>
+                            <div class="item" data-pair="winter" tabindex="0" role="button" aria-label="Match item: Winter">Winter</div>
                         </div>
                         <div class="right">
-                            <div class="item" data-pair="spring">Mild temperatures and occasional rain showers</div>
-                            <div class="item" data-pair="summer">Hot and humid with chance of thunderstorms</div>
-                            <div class="item" data-pair="autumn">Cool and windy with falling leaves</div>
-                            <div class="item" data-pair="winter">Cold temperatures and possible snowfall</div>
+                            <div class="item" data-pair="spring" tabindex="0" role="button" aria-label="Match item: Mild temperatures and occasional rain showers">Mild temperatures and occasional rain showers</div>
+                            <div class="item" data-pair="summer" tabindex="0" role="button" aria-label="Match item: Hot and humid with chance of thunderstorms">Hot and humid with chance of thunderstorms</div>
+                            <div class="item" data-pair="autumn" tabindex="0" role="button" aria-label="Match item: Cool and windy with falling leaves">Cool and windy with falling leaves</div>
+                            <div class="item" data-pair="winter" tabindex="0" role="button" aria-label="Match item: Cold temperatures and possible snowfall">Cold temperatures and possible snowfall</div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Weather Forecast Dictation -->
-            <section class="task dictation">
-                <h2>4. Weather Forecast Dictation</h2>
+            <section class="task-container task dictation" aria-labelledby="task4-title">
+                <h2 id="task4-title">4. Weather Forecast Dictation</h2>
                 <p class="instructions">Listen and type what you hear.</p>
                 
                 <div class="content">
                     <div class="controls">
-                        <button class="play-btn">Play</button>
+                        <button class="play-btn" aria-label="Play audio">Play</button>
                         <div class="speed-controls">
                             <button class="speed-btn" data-speed="0.75">0.75x</button>
                             <button class="speed-btn active" data-speed="1">1x</button>
                         </div>
                         <span class="attempts">Plays left: 3</span>
                     </div>
-                    <textarea data-text="Tomorrow will bring partly cloudy conditions with a gentle breeze. Expect temperatures to range between 18 and 23 degrees Celsius." 
-                              data-max-attempts="3"
-                              placeholder="Type what you hear..."></textarea>
+                    <textarea 
+                        data-text="Tomorrow will bring partly cloudy conditions with a gentle breeze. Expect temperatures to range between 18 and 23 degrees Celsius." 
+                        data-max-attempts="3"
+                        placeholder="Type what you hear..."
+                        aria-label="Dictation input area"></textarea>
                 </div>
             </section>
         </div>
 
-        <footer class="footer">
-            <button type="button" id="check">Check Answers</button>
-            <button type="button" id="retry">Try Again</button>
+        <footer class="worksheet-footer">
+            <div class="button-group">
+                <button type="button" id="check" class="btn btn-primary">Check Answers</button>
+                <button type="button" id="retry" class="btn btn-secondary">Try Again</button>
+            </div>
+            <div aria-live="polite" class="feedback-region visually-hidden"></div>
         </footer>
     </main>
 

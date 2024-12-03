@@ -1,4 +1,6 @@
 import BaseTask from './baseTask.js';
+import { MatchingScoring } from '../scoring/matching/scoring.js';
+import { MatchingScoreDisplay } from '../scoring/matching/display.js';
 
 export default class Matching extends BaseTask {
     constructor(element) {
@@ -9,6 +11,8 @@ export default class Matching extends BaseTask {
         this.connections = [];
         this.setupSVG();
         this.setupEvents();
+        this.scoring = new MatchingScoring();
+        this.scoreDisplay = new MatchingScoreDisplay();
     }
 
     setupSVG() {
@@ -94,33 +98,35 @@ export default class Matching extends BaseTask {
     }
 
     async check() {
-        let correct = 0;
         const totalPairs = Array.from(this.items).filter(item => 
             item.closest('.left') !== null
         ).length;
 
-        // Check each connection
+        // Use scoring system to evaluate connections
+        const score = this.scoring.calculateScore(this.connections, totalPairs);
+
+        // Update visual feedback
         this.connections.forEach(conn => {
-            const isCorrect = conn.pairId1 === conn.pairId2;
-            conn.correct = isCorrect;
-            if (isCorrect) {
-                correct++;
+            const evaluation = this.scoring.evaluateConnection(conn);
+            conn.correct = evaluation.correct;
+            
+            // Apply visual feedback
+            if (evaluation.correct) {
                 conn.from.classList.add('correct');
                 conn.to.classList.add('correct');
             } else {
                 conn.from.classList.add('incorrect');
                 conn.to.classList.add('incorrect');
-                setTimeout(() => {
-                    conn.from.classList.remove('incorrect');
-                    conn.to.classList.remove('incorrect');
-                }, 2000);
             }
         });
 
-        // Update line colors with feedback
+        // Update line colors
         this.drawLines();
 
-        return { correct, total: totalPairs };
+        // Display detailed scoring
+        this.scoreDisplay.displayScore(score, this.element);
+
+        return { correct: score.points, total: score.maxPoints };
     }
 
     reset() {
@@ -130,5 +136,6 @@ export default class Matching extends BaseTask {
             item.classList.remove('selected', 'correct', 'incorrect');
         });
         this.svg.innerHTML = '';
+        this.scoreDisplay.clear();
     }
 }

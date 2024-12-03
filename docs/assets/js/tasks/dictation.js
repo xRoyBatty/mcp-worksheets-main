@@ -1,4 +1,6 @@
 import BaseTask from './baseTask.js';
+import { DictationScoring } from '../scoring/dictation/scoring.js';
+import { DictationScoreDisplay } from '../scoring/dictation/display.js';
 
 export default class Dictation extends BaseTask {
     constructor(element) {
@@ -8,6 +10,8 @@ export default class Dictation extends BaseTask {
         this.maxAttempts = parseInt(this.textarea?.dataset.maxAttempts || '3', 10);
         this.attempts = this.maxAttempts;
         this.currentSpeed = 1;
+        this.scoring = new DictationScoring();
+        this.scoreDisplay = new DictationScoreDisplay();
 
         // Setup play button
         this.playBtn = element.querySelector('.play-btn');
@@ -71,24 +75,25 @@ export default class Dictation extends BaseTask {
     async check() {
         if (!this.textarea || !this.text) return { correct: 0, total: 1 };
 
-        const userText = this.textarea.value.trim().toLowerCase();
-        const correctText = this.text.toLowerCase();
+        // Use scoring system to evaluate the dictation
+        const score = this.scoring.evaluateDictation(this.textarea);
 
-        // Calculate similarity
-        const isCorrect = userText === correctText;
-        const isPartial = !isCorrect && correctText.includes(userText);
-
-        // Show feedback
-        this.setState(this.textarea, isCorrect ? 'correct' : isPartial ? 'partial' : 'incorrect');
-
-        // Show correct answer if wrong
-        if (!isCorrect) {
-            this.textarea.title = `Correct text: ${this.text}`;
+        // Apply visual feedback based on overall performance
+        const overallAccuracy = score.points / score.maxPoints;
+        if (overallAccuracy >= 0.8) {
+            this.setState(this.textarea, 'correct');
+        } else if (overallAccuracy >= 0.5) {
+            this.setState(this.textarea, 'partial');
+        } else {
+            this.setState(this.textarea, 'incorrect');
         }
 
+        // Display detailed scoring
+        this.scoreDisplay.displayScore(score, this.element);
+
         return {
-            correct: isCorrect ? 1 : 0,
-            total: 1
+            correct: score.points,
+            total: score.maxPoints
         };
     }
 
@@ -100,5 +105,6 @@ export default class Dictation extends BaseTask {
         }
         this.attempts = this.maxAttempts;
         this.updateAttempts();
+        this.scoreDisplay.clear();
     }
 }

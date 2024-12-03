@@ -1,29 +1,48 @@
 /* Fill in the Blanks Styles */
 .fill-blanks .content {
-    line-height: 2;
+    line-height: 2.2;
+    font-size: 1.1rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
 }
 
 .fill-blanks input {
-    width: 120px;
-    padding: 4px 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin: 0 4px;
+    width: 140px;
+    padding: 8px 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    margin: 0 6px;
+    font-family: inherit;
+    font-size: inherit;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.fill-blanks input:hover {
+    border-color: #adb5bd;
 }
 
 .fill-blanks input:focus {
     outline: none;
     border-color: #0066cc;
-    box-shadow: 0 0 0 2px rgba(0,102,204,0.2);
+    box-shadow: 0 0 0 3px rgba(0,102,204,0.15);
+    background: white;
 }
 
 /* States */
 .fill-blanks input.correct {
     border-color: #28a745;
     background: #d4edda;
+    box-shadow: 0 0 0 3px rgba(40,167,69,0.15);
+    color: #155724;
+    font-weight: 500;
 }
 
 .fill-blanks input.incorrect {
     border-color: #dc3545;
     background: #f8d7da;
+    box-shadow: 0 0 0 3px rgba(220,53,69,0.15);
+    color: #721c24;
+    font-weight: 500;
 }

@@ -1,25 +1,32 @@
 import BaseTask from './baseTask.js';
+import { MultiChoiceScoring } from '../scoring/multiChoice/scoring.js';
+import { MultiChoiceScoreDisplay } from '../scoring/multiChoice/display.js';
 
 export default class MultipleChoice extends BaseTask {
     constructor(element) {
         super(element);
         this.questions = element.querySelectorAll('.question');
+        this.scoring = new MultiChoiceScoring();
+        this.scoreDisplay = new MultiChoiceScoreDisplay();
     }
 
     async check() {
-        let correct = 0;
-        const total = this.questions.length;
+        // Use scoring system to evaluate answers
+        const score = this.scoring.calculateScore(this.questions);
 
-        this.questions.forEach(question => {
+        // Apply visual feedback
+        this.questions.forEach((question, index) => {
             const selected = question.querySelector('input:checked');
             if (selected) {
                 const isCorrect = selected.dataset.correct === 'true';
                 this.setState(selected.parentElement, isCorrect ? 'correct' : 'incorrect');
-                if (isCorrect) correct++;
             }
         });
 
-        return { correct, total };
+        // Display detailed scoring
+        this.scoreDisplay.displayScore(score, this.element);
+
+        return { correct: score.points, total: score.maxPoints };
     }
 
     reset() {
@@ -30,5 +37,6 @@ export default class MultipleChoice extends BaseTask {
                 option.querySelector('input').checked = false;
             });
         });
+        this.scoreDisplay.clear();
     }
 }

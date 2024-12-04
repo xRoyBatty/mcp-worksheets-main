@@ -33,6 +33,15 @@ body {
     --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
     --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
     --shadow-lg: 0 8px 16px rgba(0,0,0,0.1);
+
+    /* Animation variables */
+    --transition-fast: 150ms;
+    --transition-normal: 300ms;
+    --hover-lift: translateY(-4px);
+    --hover-shadow: var(--shadow-lg);
+    --color-hover: rgba(0, 102, 204, 0.1);
+    --color-active: rgba(0, 102, 204, 0.2);
+    --color-focus: rgba(0, 102, 204, 0.15);
 }
 
 /* Container */
@@ -51,34 +60,69 @@ body {
 .site-header h1 {
     font-size: 2.5rem;
     color: var(--color-primary);
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 700;
 }
 
-/* Level Filter */
-.level-filter {
+/* Filter Buttons */
+.level-filter,
+.skill-filter {
     display: flex;
     justify-content: center;
     gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
 }
 
-.level-filter button {
+.level-filter button,
+.skill-filter button {
     padding: var(--spacing-sm) var(--spacing-md);
     border: 1px solid var(--color-primary);
     border-radius: var(--radius-sm);
     background: transparent;
     color: var(--color-primary);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all var(--transition-fast);
+    font-weight: 500;
 }
 
-.level-filter button:hover {
-    background: rgba(0, 102, 204, 0.1);
+.level-filter button:hover,
+.skill-filter button:hover {
+    background: var(--color-hover);
+    transform: translateY(-1px);
 }
 
-.level-filter button.active {
+.level-filter button:active,
+.skill-filter button:active {
+    background: var(--color-active);
+    transform: translateY(0);
+}
+
+.level-filter button.active,
+.skill-filter button.active {
     background: var(--color-primary);
     color: white;
+}
+
+/* Search Input */
+.search-container {
+    margin: var(--spacing-lg) auto;
+    max-width: 400px;
+}
+
+.search-input {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    font-size: 1rem;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-focus);
 }
 
 /* Worksheet Grid */
@@ -90,24 +134,30 @@ body {
 
 /* Worksheet Card */
 .worksheet-card {
+    position: relative;
     background: white;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
     padding: var(--spacing-lg);
     text-decoration: none;
     color: inherit;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    overflow: hidden;
 }
 
 .worksheet-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    transform: var(--hover-lift);
+    box-shadow: var(--hover-shadow);
+    border-color: var(--color-border);
 }
 
 .worksheet-card h2 {
     font-size: 1.5rem;
     color: var(--color-primary);
     margin-bottom: var(--spacing-md);
+    font-weight: 600;
+    line-height: 1.3;
 }
 
 .worksheet-meta {
@@ -116,17 +166,26 @@ body {
     margin-bottom: var(--spacing-md);
     color: var(--color-secondary);
     font-size: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.worksheet-meta span {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
 }
 
 .worksheet-description {
     margin-bottom: var(--spacing-md);
     line-height: 1.6;
+    color: var(--color-secondary);
 }
 
 .worksheet-tags {
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
 }
 
 .worksheet-tag {
@@ -135,6 +194,55 @@ body {
     background: #f0f0f0;
     border-radius: var(--radius-sm);
     color: var(--color-secondary);
+    transition: background-color var(--transition-fast);
+}
+
+.worksheet-card:hover .worksheet-tag {
+    background: #e8e8e8;
+}
+
+/* Delete Button */
+.delete-worksheet {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-error);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    opacity: 0;
+    transition: all var(--transition-fast);
+    transform: translateY(-4px);
+    z-index: 2;
+    font-weight: 500;
+}
+
+.worksheet-card:hover .delete-worksheet {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delete-worksheet:hover {
+    background: #b52b38;
+}
+
+/* Loading State */
+.worksheet-card.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.worksheet-card.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-md);
 }
 
 /* Responsive Design */
@@ -147,29 +255,52 @@ body {
         font-size: 2rem;
     }
 
-    .level-filter {
-        flex-wrap: wrap;
-    }
-
     .worksheet-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+    }
+
+    .level-filter,
+    .skill-filter {
+        gap: var(--spacing-xs);
+    }
+
+    .level-filter button,
+    .skill-filter button {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.9rem;
+    }
+
+    .delete-worksheet {
+        opacity: 1;
+        transform: none;
     }
 }
 
-/* Accessibility */
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
+/* Print Styles */
+@media print {
+    .level-filter,
+    .skill-filter,
+    .search-container,
+    .delete-worksheet {
+        display: none;
+    }
+    
+    .worksheet-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid var(--color-border);
+    }
 
-.focus-visible:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+    .worksheet-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    body {
+        background: white;
+    }
+
+    .container {
+        padding: 0;
+    }
 }

@@ -1,20 +1,89 @@
 {
-    "title": "[Worksheet Title]",
-    "level": "[Level]",
-    "category": "[Category]",
-    "tags": ["tag1", "tag2"],
-    "description": "[Description]",
-    "objectives": [
-        "[Objective 1]",
-        "[Objective 2]"
-    ],
-    "estimatedTime": "[Time] minutes",
-    "taskTypes": [
-        "multiChoice",
-        "fillBlanks",
-        "matching",
-        "dictation"
-    ],
-    "skillsFocus": ["skill1", "skill2"],
-    "prerequisites": ["[Prerequisite 1]"],
+  "taskTypes": [
+    {
+      "id": "multiChoice",
+      "name": "Multiple Choice",
+      "template": "templates/tasks/multiChoice.html"
+    },
+    {
+      "id": "fillBlanks",
+      "name": "Fill in the Blanks",
+      "template": "templates/tasks/fillBlanks.html"
+    },
+    {
+      "id": "matching",
+      "name": "Matching",
+      "template": "templates/tasks/matching.html"
+    },
+    {
+      "id": "dictation",
+      "name": "Dictation",
+      "template": "templates/tasks/dictation.html"
+    },
+    {
+      "id": "comprehension",
+      "name": "Reading/Video Comprehension",
+      "template": "templates/tasks/comprehension.html",
+      "contentTypes": [
+        {
+          "id": "text",
+          "name": "Text Reading",
+          "fields": [
+            {
+              "id": "text",
+              "name": "Text Content",
+              "type": "textarea",
+              "required": true
+            }
+          ]
+        },
+        {
+          "id": "video",
+          "name": "Video",
+          "fields": [
+            {
+              "id": "videoId",
+              "name": "YouTube Video ID",
+              "type": "text",
+              "required": true
+            }
+          ]
+        },
+        {
+          "id": "audio",
+          "name": "Audio",
+          "fields": [
+            {
+              "id": "audioFile",
+              "name": "Audio File (MP3)",
+              "type": "file",
+              "accept": ".mp3",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "commonFields": [
+        {
+          "id": "statements",
+          "name": "True/False Statements",
+          "type": "array",
+          "items": [
+            {
+              "id": "text",
+              "name": "Statement",
+              "type": "text",
+              "required": true
+            },
+            {
+              "id": "correct",
+              "name": "Is True?",
+              "type": "boolean",
+              "required": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

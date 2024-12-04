@@ -1,0 +1,74 @@
+<div class="comprehension-container task" data-task-type="comprehension" data-task-id="{{taskId}}">
+  <div class="comprehension-content">
+    {{#if contentType}}
+      {{#eq contentType 'video'}}
+      <div class="video-content">
+        <iframe 
+          src="https://www.youtube.com/embed/{{videoId}}" 
+          title="{{title}}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      {{/eq}}
+
+      {{#eq contentType 'text'}}
+      <div class="reading-content">
+        <div class="reading-text">{{{text}}}</div>
+        <button class="text-to-speech-btn" aria-label="Read text aloud" title="Read text aloud">
+          <i class="fas fa-volume-up"></i>
+        </button>
+      </div>
+      {{/eq}}
+
+      {{#eq contentType 'audio'}}
+      <div class="audio-content">
+        <div class="audio-controls">
+          <button class="play-btn" aria-label="Play audio">
+            <i class="fas fa-play"></i>
+          </button>
+          <button class="pause-btn" aria-label="Pause audio" style="display: none;">
+            <i class="fas fa-pause"></i>
+          </button>
+          <button class="stop-btn" aria-label="Stop audio">
+            <i class="fas fa-stop"></i>
+          </button>
+        </div>
+        <div class="audio-progress">
+          <progress value="0" max="100"></progress>
+          <span class="time-display">00:00 / 00:00</span>
+        </div>
+      </div>
+      {{/eq}}
+    {{/if}}
+    
+    <div class="instructions">
+      {{instructions}}
+    </div>
+
+    <ul class="true-false-list">
+      {{#each statements}}
+      <li class="true-false-item" data-statement-index="{{@index}}">
+        <div class="true-false-statement">
+          {{text}}
+        </div>
+        <div class="true-false-options">
+          <label>
+            <input type="radio" name="statement_{{@index}}" value="true"> True
+          </label>
+          <label>
+            <input type="radio" name="statement_{{@index}}" value="false"> False
+          </label>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+
+    <div class="task-buttons">
+      <button class="submit-btn" disabled>Submit</button>
+      <button class="reset-btn">Reset</button>
+    </div>
+
+    <div class="score-container"></div>
+  </div>
+</div>

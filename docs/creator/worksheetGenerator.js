@@ -29,6 +29,17 @@ async function loadTemplate() {
     }
 }
 
+
+// async function loadTemplate() {
+//     try {
+//         const response = await fetch('/api/template');  // Use an API endpoint instead
+//         return await response.text();
+//     } catch (error) {
+//         console.error('Error loading template:', error);
+//         throw new Error('Failed to load worksheet template');
+//     }
+// }
+
 function generateTaskHtml(task, taskNumber) {
     switch (task.type) {
         case 'multiChoice':

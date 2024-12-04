@@ -79,6 +79,42 @@
       ],
       "category": "grammar",
       "path": "b1-b1-business-english-mixed-practice"
+    },
+    {
+      "title": "B1 BBBusiness English - Mixed Practice",
+      "level": "b1",
+      "skills": [
+        "grammar",
+        "vocabulary",
+        "reading",
+        "listening"
+      ],
+      "category": "grammar",
+      "path": "b1-b1-bbbusiness-english-mixed-practice"
+    },
+    {
+      "title": "Business English - Mixed Practice",
+      "level": "b1",
+      "skills": [
+        "grammar",
+        "vocabulary",
+        "reading",
+        "listening"
+      ],
+      "category": "grammar",
+      "path": "b1-business-english-mixed-practice"
+    },
+    {
+      "title": "English - Mixed Practice",
+      "level": "b1",
+      "skills": [
+        "grammar",
+        "vocabulary",
+        "reading",
+        "listening"
+      ],
+      "category": "grammar",
+      "path": "b1-english-mixed-practice"
     }
   ],
   "levels": [

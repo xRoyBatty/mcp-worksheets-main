@@ -232,7 +232,7 @@ class WorksheetCreator {
                 .replace(/(^-|-$)/g, '')}`;
 
             // Create a simple server endpoint to handle file creation
-            const response = await fetch('http://127.0.0.1:5501/api/create-worksheet', {
+            const response = await fetch('http://127.0.0.1:3000/api/create-worksheet', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

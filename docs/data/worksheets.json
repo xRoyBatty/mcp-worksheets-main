@@ -56,6 +56,29 @@
       ],
       "category": "grammar",
       "path": "b1-ffirst-and-second-conditionals"
+    },
+    {
+      "title": "Mixed Practice - Creator Test",
+      "level": "b1",
+      "skills": [
+        "grammar",
+        "vocabulary",
+        "listening"
+      ],
+      "category": "grammar",
+      "path": "b1-mixed-practice-creator-test"
+    },
+    {
+      "title": "B1 Business English - Mixed Practice",
+      "level": "b1",
+      "skills": [
+        "grammar",
+        "vocabulary",
+        "reading",
+        "listening"
+      ],
+      "category": "grammar",
+      "path": "b1-b1-business-english-mixed-practice"
     }
   ],
   "levels": [

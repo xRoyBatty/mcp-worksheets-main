@@ -1,0 +1,45 @@
+.comprehension-score {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: var(--score-bg);
+  border-radius: 4px;
+}
+
+.comprehension-score-header {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--score-text);
+}
+
+.comprehension-score-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.comprehension-score-label {
+  color: var(--score-label);
+}
+
+.comprehension-score-value {
+  color: var(--score-value);
+  font-weight: bold;
+}
+
+.true-false-feedback {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.true-false-feedback.correct {
+  color: var(--success-color);
+}
+
+.true-false-feedback.incorrect {
+  color: var(--error-color);
+}

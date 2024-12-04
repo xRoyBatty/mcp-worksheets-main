@@ -37,44 +37,7 @@
         </header>
 
         <main>
-            <div class="worksheet-grid">
-                <!-- Weather and Seasons Worksheet -->
-                <a href="worksheets/b1-weather/index.html" class="worksheet-card" data-level="b1" data-skills="listening vocabulary">
-                    <h2>Weather and Seasons</h2>
-                    <div class="worksheet-meta">
-                        <span class="level">B1</span>
-                        <span class="time">20 min</span>
-                        <span class="skills">Listening, Vocabulary</span>
-                    </div>
-                    <p class="worksheet-description">
-                        Practice weather-related vocabulary and listening comprehension through various interactive exercises including dictation.
-                    </p>
-                    <div class="worksheet-tags">
-                        <span class="worksheet-tag">Multiple Choice</span>
-                        <span class="worksheet-tag">Fill in Blanks</span>
-                        <span class="worksheet-tag">Matching</span>
-                        <span class="worksheet-tag">Dictation</span>
-                    </div>
-                </a>
-
-                <!-- Existing Past vs Perfect Worksheet -->
-                <a href="worksheets/b1-past-vs-perfect/index.html" class="worksheet-card" data-level="b1" data-skills="grammar">
-                    <h2>Past Simple vs Present Perfect</h2>
-                    <div class="worksheet-meta">
-                        <span class="level">B1</span>
-                        <span class="time">20 min</span>
-                        <span class="skills">Grammar</span>
-                    </div>
-                    <p class="worksheet-description">
-                        Practice when to use Past Simple and when to use Present Perfect with interactive exercises.
-                    </p>
-                    <div class="worksheet-tags">
-                        <span class="worksheet-tag">Multiple Choice</span>
-                        <span class="worksheet-tag">Fill in Blanks</span>
-                        <span class="worksheet-tag">Matching</span>
-                    </div>
-                </a>
-            </div>
+            <div class="worksheet-grid"></div>
         </main>
 
         <footer class="site-footer">
@@ -119,6 +82,33 @@
                     matchesLevel && matchesSkill && matchesSearch ? 'block' : 'none';
             });
         }
+
+        // Delete worksheet function
+        function deleteWorksheet(event, worksheetPath) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            if (confirm('Are you sure you want to delete this worksheet? Please remember to delete the worksheet directory manually.')) {
+                const card = event.target.closest('.worksheet-card');
+                card.classList.add('loading');
+                
+                // Update worksheets.json
+                fetch('data/worksheets.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Show instructions
+                        alert(`Please delete:\n1. /worksheets/${worksheetPath} directory\n2. Remove the entry from data/worksheets.json`);
+                        
+                        // Remove the card from display
+                        card.remove();
+                    })
+                    .catch(error => {
+                        console.error('Error deleting worksheet:', error);
+                        card.classList.remove('loading');
+                        alert('Error deleting worksheet. Please try again.');
+                    });
+            }
+        }
     
         // Add the new worksheet loading function
         async function loadWorksheets() {
@@ -136,18 +126,28 @@
                     card.dataset.skills = worksheet.skills.join(' ');
                     
                     card.innerHTML = `
+                        <button class="delete-worksheet" onclick="deleteWorksheet(event, '${worksheet.path}')">Delete</button>
                         <h2>${worksheet.title}</h2>
                         <div class="worksheet-meta">
                             <span class="level">${worksheet.level.toUpperCase()}</span>
+                            <span class="time">20 min</span>
                             <span class="skills">${worksheet.skills.join(', ')}</span>
                         </div>
                         <p class="worksheet-description">
                             ${worksheet.metadata?.description || ''}
                         </p>
+                        ${worksheet.metadata?.tags ? `
+                            <div class="worksheet-tags">
+                                ${worksheet.metadata.tags.map(tag => `<span class="worksheet-tag">${tag}</span>`).join('')}
+                            </div>
+                        ` : ''}
                     `;
                     
                     worksheetGrid.appendChild(card);
                 });
+
+                // Apply initial filters
+                applyFilters();
             } catch (error) {
                 console.error('Error loading worksheets:', error);
             }

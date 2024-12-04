@@ -1,0 +1,41 @@
+<div class="video-read-container task" data-task-type="videoRead" data-task-id="{{taskId}}">
+  <div class="video-read-content">
+    <div class="video-embed">
+      <iframe 
+        src="https://www.youtube.com/embed/{{videoId}}" 
+        title="{{title}}"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    
+    <div class="instructions">
+      {{instructions}}
+    </div>
+
+    <ul class="true-false-list">
+      {{#each statements}}
+      <li class="true-false-item" data-statement-index="{{@index}}">
+        <div class="true-false-statement">
+          {{text}}
+        </div>
+        <div class="true-false-options">
+          <label>
+            <input type="radio" name="statement_{{@index}}" value="true"> True
+          </label>
+          <label>
+            <input type="radio" name="statement_{{@index}}" value="false"> False
+          </label>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+
+    <div class="task-buttons">
+      <button class="submit-btn" disabled>Submit</button>
+      <button class="reset-btn">Reset</button>
+    </div>
+
+    <div class="score-container"></div>
+  </div>
+</div>

@@ -3,61 +3,6 @@
   "lastUpdated": "2024-03-21T12:00:00Z",
   "worksheets": [
     {
-      "title": "Example Worksheet",
-      "level": "b1",
-      "category": "grammar",
-      "skills": [
-        "grammar",
-        "reading"
-      ],
-      "path": "b1-example-worksheet",
-      "metadata": {
-        "description": "A sample worksheet to demonstrate structure",
-        "estimatedTime": "20 minutes",
-        "objectives": [
-          "Practice present perfect",
-          "Review irregular verbs"
-        ],
-        "tags": [
-          "present perfect",
-          "irregular verbs"
-        ],
-        "prerequisites": [
-          "Basic verb tenses"
-        ]
-      }
-    },
-    {
-      "title": "Present Perfect Practice",
-      "level": "b1",
-      "skills": [
-        "grammar",
-        "reading"
-      ],
-      "category": "grammar",
-      "path": "b1-present-perfect-practice"
-    },
-    {
-      "title": "First and Second Conditionals",
-      "level": "b1",
-      "skills": [
-        "grammar",
-        "speaking"
-      ],
-      "category": "grammar",
-      "path": "b1-first-and-second-conditionals"
-    },
-    {
-      "title": "FFirst and Second Conditionals",
-      "level": "b1",
-      "skills": [
-        "grammar",
-        "speaking"
-      ],
-      "category": "grammar",
-      "path": "b1-ffirst-and-second-conditionals"
-    },
-    {
       "title": "Mixed Practice - Creator Test",
       "level": "b1",
       "skills": [
@@ -67,42 +12,6 @@
       ],
       "category": "grammar",
       "path": "b1-mixed-practice-creator-test"
-    },
-    {
-      "title": "B1 Business English - Mixed Practice",
-      "level": "b1",
-      "skills": [
-        "grammar",
-        "vocabulary",
-        "reading",
-        "listening"
-      ],
-      "category": "grammar",
-      "path": "b1-b1-business-english-mixed-practice"
-    },
-    {
-      "title": "B1 BBBusiness English - Mixed Practice",
-      "level": "b1",
-      "skills": [
-        "grammar",
-        "vocabulary",
-        "reading",
-        "listening"
-      ],
-      "category": "grammar",
-      "path": "b1-b1-bbbusiness-english-mixed-practice"
-    },
-    {
-      "title": "Business English - Mixed Practice",
-      "level": "b1",
-      "skills": [
-        "grammar",
-        "vocabulary",
-        "reading",
-        "listening"
-      ],
-      "category": "grammar",
-      "path": "b1-business-english-mixed-practice"
     },
     {
       "title": "English - Mixed Practice",

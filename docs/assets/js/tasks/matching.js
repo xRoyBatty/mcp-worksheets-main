@@ -56,13 +56,13 @@ export default class Matching extends BaseTask {
             // Check if the selected item is from the left and the clicked item is from the right
             const isLeftItem = this.selected.closest('.left-items') !== null;
             const isRightItem = item.closest('.right-items') !== null;
-
+    
             if (isLeftItem && isRightItem) {
                 // Check if a connection already exists
                 const existingConnection = this.connections.find(conn => 
                     conn.from === this.selected && conn.to === item
                 );
-
+    
                 if (existingConnection) {
                     // If a connection exists, remove it
                     this.connections = this.connections.filter(conn => 
@@ -80,7 +80,7 @@ export default class Matching extends BaseTask {
                         pairId2: item.dataset.pair
                     });
                     this.selected.classList.remove('selected');
-                    this.drawLines('#666');
+                    this.drawLines('#666'); // Draw lines after adding the connection
                     this.selected = null;
                 }
             } else {

@@ -49,46 +49,20 @@ export default class Matching extends BaseTask {
             this.selected = item;
             item.classList.add('selected');
         } else if (this.selected === item) {
-            // Deselect if the same item is clicked
+            // Deselect if same item
             this.selected.classList.remove('selected');
             this.selected = null;
         } else {
-            // Check if the selected item is from the left and the clicked item is from the right
-            const isLeftItem = this.selected.closest('.left-items') !== null;
-            const isRightItem = item.closest('.right-items') !== null;
-    
-            if (isLeftItem && isRightItem) {
-                // Check if a connection already exists
-                const existingConnection = this.connections.find(conn => 
-                    conn.from === this.selected && conn.to === item
-                );
-    
-                if (existingConnection) {
-                    // If a connection exists, remove it
-                    this.connections = this.connections.filter(conn => 
-                        !(conn.from === this.selected && conn.to === item)
-                    );
-                    this.selected.classList.remove('selected');
-                    this.drawLines('#666'); // Redraw lines without the removed connection
-                    this.selected = null;
-                } else {
-                    // Make a connection if valid
-                    this.connections.push({
-                        from: this.selected,
-                        to: item,
-                        pairId1: this.selected.dataset.pair,
-                        pairId2: item.dataset.pair
-                    });
-                    this.selected.classList.remove('selected');
-                    this.drawLines('#666'); // Draw lines after adding the connection
-                    this.selected = null;
-                }
-            } else {
-                // If the user clicks another left item or an invalid item, just update the selection
-                this.selected.classList.remove('selected');
-                this.selected = item;
-                item.classList.add('selected');
-            }
+            // Make a connection without immediate validation
+            this.connections.push({
+                from: this.selected,
+                to: item,
+                pairId1: this.selected.dataset.pair,
+                pairId2: item.dataset.pair
+            });
+            this.selected.classList.remove('selected');
+            this.drawLines('#666');
+            this.selected = null;
         }
     }
 

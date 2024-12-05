@@ -1,0 +1,14 @@
+{
+  "title": "Example Worksheet",
+  "level": "b1",
+  "category": "grammar",
+  "skills": ["reading", "grammar"],
+  "tasks": [],
+  "metadata": {
+    "description": "Example worksheet description",
+    "estimatedTime": "30 minutes",
+    "objectives": ["Practice reading comprehension", "Review grammar concepts"],
+    "prerequisites": ["Basic grammar understanding"],
+    "tags": ["reading", "grammar", "b1"]
+  }
+}

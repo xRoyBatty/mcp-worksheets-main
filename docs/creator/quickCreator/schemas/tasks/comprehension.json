@@ -1,0 +1,17 @@
+{
+  "type": "comprehension",
+  "title": "Reading Comprehension",
+  "contentType": "text",
+  "content": "London, the capital of England, is one of the world's most visited cities. It is known for its rich history, diverse culture, and modern innovations. The city is home to many famous landmarks like Big Ben, Tower Bridge, and Buckingham Palace.",
+  "instructions": "Read the text and decide if the statements are true or false",
+  "statements": [
+    {
+      "text": "London is the capital of England.",
+      "correct": true
+    },
+    {
+      "text": "London has no modern elements, only historical ones.",
+      "correct": false
+    }
+  ]
+}

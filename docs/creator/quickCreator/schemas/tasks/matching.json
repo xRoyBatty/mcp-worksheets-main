@@ -1,0 +1,17 @@
+{
+  "type": "matching",
+  "title": "Matching Exercise",
+  "instructions": "Match the items from the left column with the corresponding items from the right column",
+  "pairs": [
+    {
+      "id": 1,
+      "left": "house",
+      "right": "casa"
+    },
+    {
+      "id": 2,
+      "left": "car",
+      "right": "coche"
+    }
+  ]
+}

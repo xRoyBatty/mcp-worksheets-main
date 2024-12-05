@@ -1,0 +1,23 @@
+{
+  "type": "multiChoice",
+  "title": "Multiple Choice Question",
+  "instructions": "Choose the correct answer",
+  "question": "What is the correct form of the verb 'to be' in the past tense for 'I'?",
+  "options": [
+    {
+      "text": "was",
+      "value": 0,
+      "correct": true
+    },
+    {
+      "text": "were",
+      "value": 1,
+      "correct": false
+    },
+    {
+      "text": "am",
+      "value": 2,
+      "correct": false
+    }
+  ]
+}

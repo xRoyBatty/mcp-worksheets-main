@@ -1,0 +1,7 @@
+{
+  "type": "dictation",
+  "title": "Dictation Exercise",
+  "instructions": "Listen and type what you hear",
+  "text": "This is a sample dictation text that will be read aloud.",
+  "maxAttempts": 3
+}

@@ -1,7 +1,7 @@
 export async function generateWorksheet(worksheetData) {
     try {
         // Load the base template
-        const template = await fetch('/templates/worksheet.html').then(r => r.text());
+        const template = await fetch('../../templates/worksheet.html').then(r => r.text());
         
         // Replace basic placeholders
         let worksheet = template

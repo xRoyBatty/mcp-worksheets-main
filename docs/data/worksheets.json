@@ -24,6 +24,28 @@
       ],
       "category": "grammar",
       "path": "b1-english-mixed-practice"
+    },
+    {
+      "title": "BIG BUSINESS BAG",
+      "level": "b1",
+      "skills": [
+        "reading",
+        "vocabulary",
+        "grammar"
+      ],
+      "category": "business",
+      "path": "b1-big-business-bag"
+    },
+    {
+      "title": "ALIEN FARM",
+      "level": "A1",
+      "skills": [
+        "reading",
+        "vocabulary",
+        "grammar"
+      ],
+      "category": "business",
+      "path": "A1-alien-farm"
     }
   ],
   "levels": [

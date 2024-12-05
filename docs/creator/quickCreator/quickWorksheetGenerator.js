@@ -24,7 +24,7 @@ export async function generateWorksheet(worksheetData) {
 
 function generateTaskHtml(task, taskNumber) {
     // Load task template based on type and fill it with data
-    const templatePath = `/templates/tasks/${task.type}.html`;
+    const templatePath = `../../templates/tasks/${task.type}.html`;
     
     // Build task data object
     const taskData = {

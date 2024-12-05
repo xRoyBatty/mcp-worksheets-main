@@ -46,6 +46,17 @@
       ],
       "category": "business",
       "path": "A1-alien-farm"
+    },
+    {
+      "title": "Mixed Busines",
+      "level": "b1",
+      "skills": [
+        "reading",
+        "vocabulary",
+        "grammar"
+      ],
+      "category": "business",
+      "path": "b1-mixed-busines"
     }
   ],
   "levels": [

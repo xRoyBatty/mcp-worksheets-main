@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Worksheet Creator</title>
+    <link rel="stylesheet" href="quickCreator.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Quick Worksheet Creator</h1>
+            <nav>
+                <button id="showExampleBtn">Show Example</button>
+                <button id="showTasksBtn">Available Tasks</button>
+                <a href="../index.html" class="nav-link">Full Creator</a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="editor-section">
+                <div class="json-input-section">
+                    <textarea id="jsonInput" placeholder="Paste your worksheet JSON here..."></textarea>
+                    <button id="generateBtn">Generate Worksheet</button>
+                    <button id="validateBtn">Validate JSON</button>
+                </div>
+
+                <div class="help-section">
+                    <div id="tasksList" class="task-list hidden">
+                        <h3>Available Task Types</h3>
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <div id="schemaHint" class="schema-hint hidden">
+                        <h3>Example Worksheet JSON</h3>
+                        <pre></pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script type="module" src="quickCreator.js"></script>
+</body>
+</html>

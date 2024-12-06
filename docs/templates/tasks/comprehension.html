@@ -1,19 +1,44 @@
 <section class="task-container task comprehension">
-  <h2>{{taskNumber}}. {{title}}</h2>
-  <p class="instructions">{{instructions}}</p>
-  
-  <div class="content">
-      <div class="comprehension-content">
-          <div class="reading-content">
-              <div class="reading-text">{{content}}</div>
-              <button class="text-to-speech-btn" aria-label="Read text aloud">
-                  <i class="fas fa-volume-up"></i>
-              </button>
-          </div>
+    <h2>{{taskNumber}}. {{title}}</h2>
+    <p class="instructions">{{instructions}}</p>
+    
+    <div class="content">
+        <div class="comprehension-content">
+            <!-- Content Section -->
+            <div class="reading-content">
+                <div class="reading-text">{{content}}</div>
+                <button class="text-to-speech-btn" aria-label="Read text aloud">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+            </div>
 
-          <ul class="statements-list">
-              {{statements}}
-          </ul>
-      </div>
-  </div>
+            <!-- Statements Section -->
+            <ul class="true-false-list">
+                {{#each statements}}
+                <li class="true-false-item" data-statement-index="{{@index}}">
+                    <span class="true-false-statement">{{text}}</span>
+                    <div class="true-false-options">
+                        <label>
+                            <input type="radio" name="statement_{{@index}}" value="true">
+                            True
+                        </label>
+                        <label>
+                            <input type="radio" name="statement_{{@index}}" value="false">
+                            False
+                        </label>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+
+            <!-- Controls -->
+            <div class="task-controls">
+                <button class="submit-btn" disabled>Check Answers</button>
+                <button class="reset-btn">Reset</button>
+            </div>
+
+            <!-- Score Display Container -->
+            <div class="score-container"></div>
+        </div>
+    </div>
 </section>

@@ -1,0 +1,82 @@
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Results Modal */
+.results-modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 90%;
+    width: 400px;
+    animation: modalPop 0.3s ease-out;
+}
+
+@keyframes modalPop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Modal Content */
+.results-modal h2 {
+    color: #2c3e50;
+    margin-top: 0;
+    font-size: 1.8rem;
+}
+
+.score {
+    margin: 2rem 0;
+}
+
+.score-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #2c3e50;
+    line-height: 1;
+}
+
+.score-percentage {
+    font-size: 1.8rem;
+    color: #7f8c8d;
+    margin-top: 0.5rem;
+}
+
+.message {
+    font-size: 1.2rem;
+    color: #34495e;
+    margin: 1.5rem 0;
+}
+
+/* Modal Controls */
+.close-modal {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.close-modal:hover {
+    background: #2980b9;
+}

@@ -14,29 +14,6 @@
       "path": "b1-mixed-practice-creator-test"
     },
     {
-      "title": "English - Mixed Practice",
-      "level": "b1",
-      "skills": [
-        "grammar",
-        "vocabulary",
-        "reading",
-        "listening"
-      ],
-      "category": "grammar",
-      "path": "b1-english-mixed-practice"
-    },
-    {
-      "title": "BIG BUSINESS BAG",
-      "level": "b1",
-      "skills": [
-        "reading",
-        "vocabulary",
-        "grammar"
-      ],
-      "category": "business",
-      "path": "b1-big-business-bag"
-    },
-    {
       "title": "ALIEN FARM",
       "level": "A1",
       "skills": [
@@ -48,7 +25,7 @@
       "path": "A1-alien-farm"
     },
     {
-      "title": "Mixed Busines",
+      "title": "Mixed English Practice",
       "level": "b1",
       "skills": [
         "reading",
@@ -56,7 +33,18 @@
         "grammar"
       ],
       "category": "business",
-      "path": "b1-mixed-busines"
+      "path": "b1-mixed-english-practice"
+    },
+    {
+      "title": "Mixed Business English Practice",
+      "level": "b1",
+      "skills": [
+        "reading",
+        "vocabulary",
+        "grammar"
+      ],
+      "category": "business",
+      "path": "b1-mixed-business-english-practice"
     }
   ],
   "levels": [

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Business English Practice | ESL Worksheets</title>
+    <link rel="stylesheet" href="../../assets/css/worksheet.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/multiChoice.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/fillBlanks.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/matching.css">
+    <link rel="stylesheet" href="../../assets/css/tasks/dictation.css">
+    <link rel="stylesheet" href="../../assets/css/components/notification.css">
+    <!-- Scoring CSS -->
+    <link rel="stylesheet" href="../../assets/css/scoring/matching.css">
+    <link rel="stylesheet" href="../../assets/css/scoring/multiChoice.css">
+    <link rel="stylesheet" href="../../assets/css/scoring/fillBlanks.css">
+    <link rel="stylesheet" href="../../assets/css/scoring/dictation.css">
+</head>
+<body>
+    <nav class="nav">
+        <a href="../../index.html" class="back-btn">Back to Worksheets</a>
+        <div class="progress">
+            <div class="progress-bar"></div>
+            <span class="progress-text">0% Complete</span>
+        </div>
+        <div class="level">Level: B1</div>
+        <div class="voice">
+            <label>Voice:</label>
+            <select id="globalVoice"></select>
+        </div>
+    </nav>
+
+    <main class="worksheet">
+        <header class="header">
+            <h1>[Worksheet Title]</h1>
+            <div class="meta">
+                <span>Level: [Level]</span>
+                <span>Time: [Time] minutes</span>
+                <span>Skills: reading, vocabulary, grammar</span>
+            </div>
+        </header>
+
+        <div class="tasks">
+            <section class="task-container task comprehension">
+  <h2>1. Reading Comprehension</h2>
+  <p class="instructions">Read the text and decide if the statements are true or false</p>
+  
+  <div class="content">
+      <div class="comprehension-content">
+          <div class="reading-content">
+              <div class="reading-text">Remote work has become increasingly common in today's business landscape. Companies worldwide are adapting to this new way of working, which offers both benefits and challenges. For employees, remote work provides flexibility and eliminates commuting time. It can lead to better work-life balance and increased productivity. However, it also requires strong self-discipline and effective communication skills. For employers, remote work can reduce office costs and allow access to a global talent pool. Yet, managing remote teams requires new leadership approaches and robust digital infrastructure. The success of remote work often depends on clear policies, regular communication, and the right technological tools.</div>
+              <button class="text-to-speech-btn" aria-label="Read text aloud">
+                  <i class="fas fa-volume-up"></i>
+              </button>
+          </div>
+
+          <ul class="statements-list">
+              
+        -   Remote work only provides benefits without any challenges.
+    
+
+        -   Remote work can help companies save money on office space.
+    
+
+        -   Successful remote work requires effective communication.
+    
+
+        -   Remote work makes it impossible to access global talent.
+    
+
+        -   Remote work eliminates the need for leadership.
+    
+          </ul>
+      </div>
+  </div>
+</section>
+<section class="task-container task multi-Choice">
+    <h2>2. Business Vocabulary</h2>
+    <p class="instructions">Choose the correct definition for each business term</p>
+    
+    <div class="content">
+        <div class="question">
+            <p>What does ROI stand for in business?</p>
+            <div class="options">
+                
+        <label>
+            <input type="radio" name="q2" value="0" 
+                data-correct="true">
+            <span>Return on Investment</span>
+        </label>
+    
+
+        <label>
+            <input type="radio" name="q2" value="1" 
+                >
+            <span>Rate of Interest</span>
+        </label>
+    
+
+        <label>
+            <input type="radio" name="q2" value="2" 
+                >
+            <span>Review of Income</span>
+        </label>
+    
+            </div>
+        </div>
+    </div>
+</section>
+<section class="task-container task fill-Blanks">
+    <h2>3. Business Email Writing</h2>
+    <p class="instructions">Fill in the blanks with appropriate business phrases</p>
+    
+    <div class="content">
+        Dear Mr. Johnson,
+
+I am <input type="text" data-answer="writing" class="fill-blank"> to follow up on our meeting last week. As per our <input type="text" data-answer="discussion" class="fill-blank">, we will need to <input type="text" data-answer="schedule" class="fill-blank"> another meeting to finalize the details. Please let me know your <input type="text" data-answer="availability" class="fill-blank"> for next week.
+
+Best <input type="text" data-answer="regards" class="fill-blank">
+    </div>
+</section>
+<section class="task-container task matching">
+    <h2>4. Business Terms Matching</h2>
+    <p class="instructions">Match the business terms with their correct meanings</p>
+    
+    <div class="content">
+        <div class="pairs">
+            <div class="left">
+                   revenue
+   profit margin
+   overhead
+   assets
+            </div>
+            <div class="right">
+                   total income from sales
+   percentage of revenue that is profit
+   business running costs
+   valuable items owned by business
+            </div>
+        </div>
+    </div>
+</section>
+<section class="task-container task dictation">
+    <h2>5. Business Dictation</h2>
+    <p class="instructions">Listen and type what you hear</p>
+    
+    <div class="content">
+        <div class="controls">
+            <button class="play-btn">Play</button>
+            <div class="speed-controls">
+                <button class="speed-btn" data-speed="0.75">0.75x</button>
+                <button class="speed-btn active" data-speed="1">1x</button>
+            </div>
+            <span class="attempts">Plays left: 3</span>
+        </div>
+        <textarea 
+            data-text="The quarterly report shows significant growth in our international markets." 
+            data-max-attempts="3"
+            placeholder="Type what you hear..."></textarea>
+    </div>
+</section>
+        </div>
+
+        <footer class="footer">
+            <button type="button" id="check">Check Answers</button>
+            <button type="button" id="retry">Try Again</button>
+        </footer>
+    </main>
+
+    <script src="../../assets/js/worksheetManager.js" type="module"></script>
+</body>
+</html>

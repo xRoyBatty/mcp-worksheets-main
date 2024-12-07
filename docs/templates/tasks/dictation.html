@@ -9,11 +9,12 @@
                 <button class="speed-btn" data-speed="0.75">0.75x</button>
                 <button class="speed-btn active" data-speed="1">1x</button>
             </div>
-            <span class="attempts">Plays left: 3</span>
+            <span class="attempts">Plays left: {{attempts}}</span>
         </div>
         <textarea 
             data-text="{{text}}" 
-            data-max-attempts="{{maxAttempts}}"
+            data-max-attempts="{{attempts}}"
             placeholder="Type what you hear..."></textarea>
+        <div class="score-container"></div>
     </div>
 </section>

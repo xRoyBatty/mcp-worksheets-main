@@ -1,23 +1,37 @@
-class ComprehensionScoreDisplay {
-    constructor(container) {
-        this.container = container;
+export class ComprehensionScoreDisplay {
+    constructor() {
+        this.container = null;
     }
 
-    displayScore(score) {
-        // Clear previous content
-        this.container.innerHTML = '';
+    createScoreContainer() {
+        const container = document.createElement('div');
+        container.className = 'comprehension-score-container';
+        return container;
+    }
 
-        // Create score summary
-        const summary = document.createElement('div');
-        summary.className = 'score-summary';
-        summary.innerHTML = `
-            <h3>Results</h3>
-            <p class="score-text">Score: ${score.correct}/${score.total} (${Math.round(score.percentage)}%)</p>
+    displayScore(score, taskElement) {
+        // Remove existing score display if any
+        if (this.container) {
+            this.container.remove();
+        }
+
+        // Create new score container
+        this.container = this.createScoreContainer();
+
+        // Add overall score
+        const scoreHeader = document.createElement('div');
+        scoreHeader.className = 'comprehension-score-header';
+        scoreHeader.innerHTML = `
+            <h3>Reading Comprehension Score</h3>
+            <div class="comprehension-score-points">
+                ${score.correct}/${score.total} correct
+                (${Math.round(score.percentage)}%)
+            </div>
         `;
 
-        // Create detailed feedback
+        // Add detailed feedback
         const details = document.createElement('div');
-        details.className = 'score-details';
+        details.className = 'comprehension-score-details';
 
         score.answers.forEach((answer, index) => {
             const item = document.createElement('div');
@@ -35,7 +49,7 @@ class ComprehensionScoreDisplay {
 
         // Add feedback message
         const feedback = document.createElement('p');
-        feedback.className = 'feedback-message';
+        feedback.className = 'comprehension-score-feedback';
         
         if (score.percentage === 100) {
             feedback.textContent = 'Excellent! Perfect score!';
@@ -52,9 +66,12 @@ class ComprehensionScoreDisplay {
         }
 
         // Append all elements
-        this.container.appendChild(summary);
+        this.container.appendChild(scoreHeader);
         this.container.appendChild(details);
         this.container.appendChild(feedback);
+
+        // Insert after the task element
+        taskElement.parentNode.insertBefore(this.container, taskElement.nextSibling);
 
         // Scroll to score if not visible
         if (!this.isElementInViewport(this.container)) {
@@ -64,7 +81,8 @@ class ComprehensionScoreDisplay {
 
     clear() {
         if (this.container) {
-            this.container.innerHTML = '';
+            this.container.remove();
+            this.container = null;
         }
     }
 

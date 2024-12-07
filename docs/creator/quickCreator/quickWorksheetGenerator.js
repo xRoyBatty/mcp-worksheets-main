@@ -1,3 +1,17 @@
+import { generateComprehensionTask } from './generator/taskGenerators/comprehension.js';
+import { generateMatchingTask } from './generator/taskGenerators/matching.js';
+import { generateDictationTask } from './generator/taskGenerators/dictation.js';
+import { generateMultiChoiceTask } from './generator/taskGenerators/multiChoice.js';
+import { generateFillBlanksTask } from './generator/taskGenerators/fillBlanks.js';
+
+const taskGenerators = {
+    comprehension: generateComprehensionTask,
+    matching: generateMatchingTask,
+    dictation: generateDictationTask,
+    multiChoice: generateMultiChoiceTask,
+    fillBlanks: generateFillBlanksTask
+};
+
 export async function generateWorksheet(worksheetData) {
     try {
         // Load the base template through API
@@ -9,81 +23,30 @@ export async function generateWorksheet(worksheetData) {
             .replace('[Level]', worksheetData.level.toUpperCase())
             .replace('[Skills]', worksheetData.skills.join(', '));
 
-        // Get task HTML from data
+        // Generate task HTML using our modular generators
         const tasksHtml = await Promise.all(
-            worksheetData.tasks.map((task, index) => 
-                generateTaskHtml(task, index + 1)
-            )
+            worksheetData.tasks.map(async (task, index) => {
+                const taskNumber = index + 1;
+                const processedData = taskGenerators[task.type]?.({
+                    ...task,
+                    taskNumber,
+                    taskId: `${task.type}-${taskNumber}`
+                });
+
+                if (!processedData) {
+                    throw new Error(`Unknown task type: ${task.type}`);
+                }
+
+                return await replaceTemplatePlaceholders(task.type, processedData);
+            })
         );
 
         // Insert tasks into worksheet
         return worksheet.replace('<!-- Tasks will be inserted here -->', tasksHtml.join('\n'));
     } catch (error) {
         console.error('Error generating worksheet:', error);
-        throw new Error('Failed to generate worksheet');
+        throw new Error(`Failed to generate worksheet: ${error.message}`);
     }
-}
-
-async function generateTaskHtml(task, taskNumber) {
-    // Build task data object
-    const taskData = {
-        ...task,
-        taskId: `${task.type}-${taskNumber}`,
-        taskNumber: taskNumber
-    };
-
-    // Task-specific data transformations
-    switch (task.type) {
-        case 'comprehension':
-            taskData.statements = generateStatementsHtml(task.statements);
-            break;
-            
-        case 'matching':
-            taskData.leftItems = task.pairs
-                .map(pair => `   ${pair.left}`)
-                .join('\n');
-            taskData.rightItems = task.pairs
-                .map(pair => `   ${pair.right}`)
-                .join('\n');
-            break;
-            
-        case 'dictation':
-            taskData.attempts = task.maxAttempts || 3;
-            taskData.speedControls = `
-::: speed-controls
-0.75x
-1x
-:::`;
-            break;
-            
-        case 'multiChoice':
-            taskData.options = generateOptionsHtml(task.options, taskNumber);
-            break;
-            
-        case 'fillBlanks':
-            taskData.text = task.text.replace(/\[(.*?)\]/g, (match, word) => 
-                `<input type="text" data-answer="${word}" class="fill-blank">`
-            );
-            break;
-    }
-
-    return await replaceTemplatePlaceholders(task.type, taskData);
-}
-
-function generateOptionsHtml(options, taskNumber) {
-    return options.map(option => `
-        <label>
-            <input type="radio" name="q${taskNumber}" value="${option.value}" 
-                ${option.correct ? 'data-correct="true"' : ''}>
-            <span>${option.text}</span>
-        </label>
-    `).join('\n');
-}
-
-function generateStatementsHtml(statements) {
-    return statements.map(statement => `
-        -   ${statement.text}
-    `).join('\n');
 }
 
 async function replaceTemplatePlaceholders(taskType, data) {
@@ -92,7 +55,9 @@ async function replaceTemplatePlaceholders(taskType, data) {
         
         // Replace placeholders
         return template.replace(/\{\{([^}]+)\}\}/g, (match, key) => {
-            return data[key] ?? match;
+            const value = data[key];
+            if (value === undefined || value === null) return match;
+            return value;
         });
     } catch (error) {
         console.error(`Error loading template for task type ${taskType}:`, error);

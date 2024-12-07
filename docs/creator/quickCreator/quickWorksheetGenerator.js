@@ -8,9 +8,10 @@ export async function generateWorksheet(worksheetData) {
         
         // Replace basic placeholders
         let worksheet = template
-            .replace('[Worksheet Title]', worksheetData.title)
-            .replace('[Level]', worksheetData.level.toUpperCase())
-            .replace('[Skills]', worksheetData.skills.join(', '));
+            .replace(/\[Worksheet Title\]/g, worksheetData.title)
+            .replace(/\[Level\]/g, worksheetData.level.toUpperCase())
+            .replace(/\[Time\]/g, worksheetData.metadata?.estimatedTime || '30')
+            .replace(/\[Skills\]/g, worksheetData.skills.join(', '));
 
         // Get task HTML from data
         const tasksHtml = await Promise.all(

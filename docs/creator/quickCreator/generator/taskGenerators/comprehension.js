@@ -1,5 +1,4 @@
 export function generateComprehensionTask(taskData) {
-    // Generate proper HTML for all statements
     const statementsHtml = taskData.statements
         .map((statement, index) => `
             <li class="true-false-item" data-statement-index="${index}" data-correct="${statement.correct}">
@@ -16,7 +15,7 @@ export function generateComprehensionTask(taskData) {
                 </div>
             </li>
         `)
-        .join('\n');
+        .join('');
 
     return {
         ...taskData,

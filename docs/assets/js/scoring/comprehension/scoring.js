@@ -1,36 +1,48 @@
-class ComprehensionScoring {
-  constructor(statements) {
-    this.statements = statements;
-    this.answers = [];
-  }
+export class ComprehensionScoring {
+    constructor() {
+        this.userAnswers = new Map();
+        this.correctAnswers = new Map();
+    }
 
-  submitAnswer(index, answer) {
-    this.answers[index] = answer;
-  }
+    submitAnswer(index, answer) {
+        this.userAnswers.set(index, answer);
+    }
 
-  calculateScore() {
-    let correct = 0;
-    const answers = this.statements.map((statement, index) => {
-      const selected = this.answers[index];
-      const isCorrect = selected === statement.correct;
-      if (isCorrect) correct++;
+    setCorrectAnswer(index, answer) {
+        this.correctAnswers.set(index, answer);
+    }
 
-      return {
-        selected,
-        correct: statement.correct,
-        isCorrect
-      };
-    });
+    getCorrectAnswer(index) {
+        return this.correctAnswers.get(index);
+    }
 
-    return {
-      correct,
-      total: this.statements.length,
-      answers,
-      percentage: (correct / this.statements.length) * 100
-    };
-  }
+    calculateScore() {
+        let correct = 0;
+        const answers = [];
+        const total = this.correctAnswers.size;
 
-  reset() {
-    this.answers = [];
-  }
+        for (let [index, correctAnswer] of this.correctAnswers) {
+            const userAnswer = this.userAnswers.get(index);
+            const isCorrect = userAnswer === correctAnswer;
+            if (isCorrect) correct++;
+
+            answers.push({
+                index,
+                selected: userAnswer,
+                correct: correctAnswer,
+                isCorrect
+            });
+        }
+
+        return {
+            correct,
+            total,
+            answers,
+            percentage: total ? (correct / total) * 100 : 0
+        };
+    }
+
+    reset() {
+        this.userAnswers.clear();
+    }
 }

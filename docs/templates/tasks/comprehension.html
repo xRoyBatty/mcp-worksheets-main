@@ -14,28 +14,8 @@
 
             <!-- Statements Section -->
             <ul class="true-false-list">
-                {{#each statements}}
-                <li class="true-false-item" data-statement-index="{{@index}}">
-                    <span class="true-false-statement">{{text}}</span>
-                    <div class="true-false-options">
-                        <label>
-                            <input type="radio" name="statement_{{@index}}" value="true">
-                            True
-                        </label>
-                        <label>
-                            <input type="radio" name="statement_{{@index}}" value="false">
-                            False
-                        </label>
-                    </div>
-                </li>
-                {{/each}}
+                {{statements}}
             </ul>
-
-            <!-- Controls -->
-            <div class="task-controls">
-                <button class="submit-btn" disabled>Check Answers</button>
-                <button class="reset-btn">Reset</button>
-            </div>
 
             <!-- Score Display Container -->
             <div class="score-container"></div>

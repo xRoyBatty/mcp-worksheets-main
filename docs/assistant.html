@@ -235,20 +235,7 @@
             const input = document.getElementById('userInput');
             const message = input.value.trim();
             
-            if (!message || !apiKey) {
-                if (!apiKey) {
-                    const toast = document.createElement('div');
-                    toast.className = 'toast toast-end';
-                    toast.innerHTML = `
-                        <div class="alert alert-warning">
-                            <span>Please enter an API key first</span>
-                        </div>
-                    `;
-                    document.body.appendChild(toast);
-                    setTimeout(() => toast.remove(), 3000);
-                }
-                return;
-            }
+
 
             const sendButton = document.getElementById('sendButton');
             sendButton.disabled = true;

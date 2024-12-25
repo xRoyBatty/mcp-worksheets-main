@@ -1,9 +1,11 @@
-<html lang="en" data-theme="dark"><head>
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enhanced Gemini Chat</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body class="min-h-screen bg-base-200">
@@ -18,14 +20,14 @@
                             <label class="label">
                                 <span class="label-text">API Key</span>
                             </label>
-                            <input type="password" id="apiKey" placeholder="Enter API Key" class="input input-bordered">
+                            <input type="password" id="apiKey" placeholder="Enter API Key" class="input input-bordered" />
                         </div>
 
                         <!-- Theme Toggle -->
                         <div class="form-control">
                             <label class="label cursor-pointer">
                                 <span class="label-text">Dark Mode</span>
-                                <input type="checkbox" class="toggle theme-controller" value="dark">
+                                <input type="checkbox" class="toggle theme-controller" value="dark" />
                             </label>
                         </div>
 
@@ -33,25 +35,16 @@
                         <div id="fileDrop" class="file-drop border-2 border-dashed border-base-300 rounded-box p-4 text-center cursor-pointer hover:border-primary transition-colors min-h-32 flex items-center justify-center">
                             <div class="flex flex-col items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-base-content/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                 </svg>
                                 <span class="text-base-content/70">Drop files here or click to upload</span>
                                 <span class="text-xs text-base-content/50">Files will expire after 48 hours</span>
                             </div>
-                            <input type="file" id="fileInput" class="hidden" multiple="" accept="*/*">
+                            <input type="file" id="fileInput" class="hidden" multiple accept="*/*" />
                         </div>
 
                         <!-- File List -->
-                        <div id="fileList" class="overflow-y-auto flex flex-col gap-2"><div class="card bg-base-200 compact">
-                    <div class="card-body">
-                        <h3 class="card-title text-sm">symfonia_poradnik.txt</h3>
-                        <p class="text-xs ">47h 59m left</p>
-                        <div class="card-actions justify-end">
-                            
-                            <button onclick="deleteFile('https://generativelanguage.googleapis.com/v1beta/files/295uobkse5rv')" class="btn btn-xs btn-ghost">Delete</button>
-                        </div>
-                    </div>
-                </div></div>
+                        <div id="fileList" class="overflow-y-auto flex flex-col gap-2"></div>
                     </div>
                 </div>
             </div>
@@ -68,7 +61,7 @@
                             <textarea id="userInput" class="textarea textarea-bordered flex-1" placeholder="Type your message..."></textarea>
                             <button id="sendButton" class="btn btn-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                                 </svg>
                             </button>
                         </div>
@@ -234,7 +227,6 @@
             const apiKey = document.getElementById('apiKey').value;
             const input = document.getElementById('userInput');
             const message = input.value.trim();
-            
 
 
             const sendButton = document.getElementById('sendButton');
@@ -386,5 +378,5 @@
             }
         });
     </script>
-
-</body></html>
+</body>
+</html>
